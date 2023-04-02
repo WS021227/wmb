@@ -1,0 +1,699 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+
+    // 多选国家
+    .box-more {
+        width: 23.4375rem;
+        height: 100vh;
+        padding: 1rem 1.25rem;
+
+        position: fixed;
+        top: 2.75rem;
+        left: 0;
+        z-index: 999;
+        background-color: #f4f4f4;
+
+        display: none;
+
+        .title {
+            width: 20.9375rem;
+
+            border-bottom: 0.5px solid #E2E2E2;
+            padding-bottom: .5313rem;
+
+            display: flex;
+            justify-content: space-between;
+
+            .left {
+                color: #999999;
+                font-size: .8125rem;
+            }
+
+            .select-country-right {
+                img {
+                    width: .75rem;
+                }
+            }
+        }
+
+        .select-country-content {
+            margin-top: .8125rem;
+
+            overflow: scroll;
+            white-space: nowrap;
+
+            display: flex;
+
+            .select-country-box {
+                padding: 0 .7813rem;
+                border-radius: .7813rem;
+                font-size: .8125rem;
+                text-align: center;
+                line-height: 1.5625rem;
+                background-color: white;
+                color: #999999;
+                margin-right: .625rem;
+            }
+
+            .active {
+                background-color: rgba(13, 82, 173, 0.2);
+                color: rgb(13, 82, 173);
+            }
+
+            :nth-child(8) {
+                margin-right: 0;
+            }
+        }
+
+        .select-country-options {
+
+            width: 20.9375rem;
+            height: 24.875rem !important;
+            margin-top: 1.2188rem;
+            overflow-y: scroll;
+            display: flex;
+            flex-wrap: wrap;
+
+            .select-country-options-box {
+                width: 10.4688rem;
+                height: 1.1563rem;
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-transform: capitalize;
+
+                margin-bottom: 1.75rem;
+
+                display: flex;
+                align-items: center;
+
+                color: #333333;
+                font-size: .875rem;
+
+                input {
+                    width: .6563rem;
+                    height: .6875rem;
+                    margin-right: .2781rem;
+                }
+            }
+
+        }
+
+        .select-country-btn {
+            width: 19.5625rem;
+            height: 2.875rem;
+            background-color: #0D52AD;
+            border-radius: 1.4375rem;
+            color: white;
+            font-size: .8125rem;
+            font-weight: 600;
+            border: 0;
+
+            margin: 0 auto;
+            margin-top: .75rem;
+        }
+    }
+
+    // 下拉的搜索框
+    .box {
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+        background-color: #f4f4f4;
+        overflow: hidden;
+
+        position: fixed;
+        top: 2.7572rem;
+        z-index: 10000;
+
+        display: none;
+
+        .tab {
+            width: 100vw;
+            font-size: .9375rem;
+            font-weight: 600;
+            color: #999999;
+            text-align: center;
+            margin-top: .9375rem;
+
+            span {
+                padding: 0 .8125rem;
+            }
+
+            :nth-child(2) {
+                border-left: .0313rem solid #ccc;
+                border-right: .0313rem solid #ccc;
+            }
+
+            .active {
+                color: #0D52AD;
+                font-weight: 800;
+            }
+        }
+
+        .search-box {
+            width: 21rem;
+            border-radius: .9375rem;
+            box-shadow: 0 0 .5rem #ccc !important;
+            padding: .1875rem 0;
+            margin: 0 auto;
+            margin-top: .875rem;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .borm {
+                width: 2.25rem;
+                margin-left: .9375rem;
+                font-size: .75rem;
+                color: #333;
+            }
+
+            .down {
+                width: .375rem;
+                
+            }
+
+            .select {
+                width: 5.60rem;
+
+                position: absolute;
+                left: 1.2rem;
+                top: 5.2rem;
+                z-index: 1200;
+
+                font-size: .8rem;
+                background-color: #ffffff;
+                box-shadow: 0 .2rem .8rem #999;
+                display: none;
+
+                padding: .625rem .625rem;
+
+                span {
+                    display: block;
+                    text-align: center;
+                    color: #ccc !important;
+                    font-size: 0.75rem;
+                    margin: 0 auto;
+                }
+
+                :nth-child(2) {
+                    margin-top: .625rem;
+                }
+
+                .select-active {
+                    font-weight: 600 !important;
+                    color: #0D52AD !important;
+                }
+            }
+
+            span {
+                color: #ccc;
+                margin-left: .6875rem;
+            }
+
+            input {
+                margin-left: .6875rem;
+                border: 0;
+                outline: none;
+                color: #333;
+                font-size: .75rem;
+                background-color: #f4f4f4;
+            }
+
+            button {
+                padding: .4063rem .9063rem;
+                background-color: #0D52AD;
+                border-radius: .9375rem;
+                color: #ffffff;
+                font-size: .8125rem;
+                margin-right: 3px;
+                border: 0;
+            }
+        }
+
+        .hostory {
+            width: 21rem;
+            margin: 0 auto;
+            margin-top: 2.5313rem;
+
+            h3 {
+                height: .9375rem;
+                width: 100%;
+                font-size: .8125rem;
+                color: #666666;
+                font-weight: 500;
+            }
+
+            .context {
+                width: 20rem;
+                margin-top: .6875rem;
+
+                display: flex;
+                flex-wrap: wrap;
+
+                .his-box {
+                    max-width: 10rem;
+                    padding: .5625rem .5313rem;
+
+                    font-size: .75rem;
+                    color: #666666;
+
+                    border-radius: .9375rem;
+                    background-color: #ffffff;
+                    text-align: center;
+
+                    margin-bottom: .625rem;
+                    border-bottom: 0;
+                    margin-right: .4375rem;
+
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .active {
+                    background-color: #0D52AD;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    // 搜索的列表
+    .search-context {
+        width: 23.4375rem;
+        min-height: 38.125rem;
+
+        padding-top: 5.8903rem;
+        padding-bottom: 2.75rem;
+
+        background-color: rgba(244, 244, 244, 1);
+
+        .header-box {
+            width: 100%;
+            height: 3.125rem;
+            background-color: #0D52AD;
+
+            position: fixed;
+            left: 0;
+            top: 2.75rem;
+            z-index: 10;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .search {
+                width: 20.9375rem;
+                height: 1.875rem;
+                border-radius: 1.875rem;
+                border: 0;
+                outline: none;
+                text-align: center;
+            }
+        }
+
+        .country-list-box {
+            width: 21.375rem;
+            padding: .875rem 0;
+            margin-left: -0.1875rem;
+
+            background-color: rgba(244, 244, 244, 1);
+            border-bottom: 0.5px solid #E2E2E2;
+
+            position: fixed;
+            left: 1.25rem;
+            top: 5.8903rem;
+            z-index: 10;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .list-box {
+                // width: 3.125rem;
+
+                padding: 0 .3125rem;
+                border-radius: 1.5625rem;
+                line-height: 1.5625rem;
+                text-align: center;
+                color: #999999;
+                background-color: #ffffff;
+                font-size: .8125rem;
+            }
+
+            .right-btn {
+                width: 2.1875rem;
+
+                border-radius: 1.5625rem;
+                line-height: 1.5625rem;
+                text-align: center;
+                background-color: #ffffff;
+
+                .right {
+                    width: .4375rem !important;
+                    height: .7813rem !important;
+                }
+            }
+
+            .active {
+                background-color: rgba(13, 82, 173, 0.3);
+                color: rgb(13, 82, 173);
+                font-weight: 400;
+            }
+        }
+
+        .company-box {
+            margin: 0 auto;
+
+            // 公司列表
+            .company-list {
+                width: 20.9375rem;
+
+                margin: 0 auto;
+                margin-top: 6.2rem;
+
+                .title {
+                    width: 100%;
+                    height: 2.6875rem !important;
+                    background-color: rgb(244, 244, 244);
+                    padding-left: 1.2532rem;
+                    padding-right: 1.2532rem;
+
+                    position: fixed;
+                    top: 9.25rem;
+                    left: 0;
+                    z-index: 10;
+
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .sum {
+                        font-size: .9375rem;
+                        color: #333333;
+                        font-weight: 600;
+                    }
+
+                    .setting {
+                        width: 6.8rem;
+                        color: #666;
+                        font-size: .75rem;
+
+                        .left {
+                            width: 2.88rem;
+                            float: left;
+
+                            display: flex;
+                            justify-content: space-between;
+
+                            img {
+                                width: 1rem;
+                            }
+
+                            span {
+                                font-size: .75rem;
+                            }
+                        }
+
+                        .right {
+                            width: 2.88rem;
+                            float: right;
+
+                            display: flex;
+                            justify-content: space-between;
+
+                            img {
+                                width: 1rem;
+                            }
+
+                            span {
+                                font-size: .75rem;
+                            }
+                        }
+                    }
+                }
+
+                .company {
+                    width: 20.9375rem;
+                    box-shadow: .0625rem 0rem .4063rem rgba(0, 0, 0, 0.1);
+                    padding: .7813rem .9375rem;
+                    border-radius: .25rem;
+                    background-color: rgba(255, 255, 255, 1);
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    margin-bottom: .625rem;
+
+                    .titlt {
+                        text-transform: capitalize;
+                        font-size: .9375rem;
+                        color: #333;
+                        font-weight: 600;
+
+                        max-width: 17.5rem;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+
+                    .start {
+                        color: #999999;
+                        margin-top: .375rem;
+
+                        display: flex;
+                        align-items: center;
+
+                        .img {
+                            width: 4.1rem;
+                            height: .6875rem;
+                        }
+
+                        :nth-child(2) {
+                            max-width: 14.25rem;
+                            font-size: .625rem;
+                            margin-left: .3125rem;
+
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
+                        }
+
+                        .star-width-0 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 0;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-5 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-10 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*2;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-15 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*3;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-20 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*4;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-25 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*5;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-30 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*6;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-35 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*7;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-40 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*8;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-45 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*9;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+
+                        .star-width-50 {
+                            background: url('/images/mobile/company/company_details/pingfen-xinxin.png') no-repeat 0 -0.6875rem*10;
+                            background-size: 4.1rem 7.5625rem;
+                        }
+                    }
+
+                    .text {
+                        font-size: .75rem;
+                        color: #666666;
+
+                        .p1 {
+                            max-width: 19.125rem;
+                            margin-top: .6563rem;
+                            font-weight: 400;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3; // 控制多行的行数
+                            -webkit-box-orient: vertical;
+                            letter-spacing: 1px;
+                        }
+
+                        .p2 {
+                            max-width: 19.125rem;
+                            margin-top: .375rem;
+                            color: #999999;
+
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-transform: capitalize;
+                            text-overflow: ellipsis;
+                        }
+
+                    }
+
+                    .kuang {
+                        width: 19.125rem;
+                        margin-top: .6563rem;
+                        display: flex;
+
+                        .shoucang {
+                            text-align: center;
+                            color: #4394FF;
+                            border: 1px solid #388EFF;
+                            border-radius: .9375rem;
+                            font-size: .625rem;
+                            margin: .125rem 0;
+                            margin-right: .3125rem;
+                            padding: 0 .3125rem;
+
+                        }
+
+                        .shoucang-en {
+                            transform-origin: left top;
+                            transform: scale(0.7);
+                            white-space: nowrap;
+                            padding: .3125rem .3125rem;
+
+                            margin-right: -2.1875rem;
+                        }
+                        
+
+                        .yellow {
+                            color: #FFA800;
+                            border: 1px solid #FFA800;
+                        }
+
+                        .phone {
+                            color: #0DAD11;
+                            border: 1px solid #0DAD11;
+                        }
+
+                    }
+
+                    .date {
+                        margin-top: .6563rem;
+                        font-size: .75rem;
+                        color: #999999;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        div {
+                            img {
+                                width: .75rem;
+                                height: .75rem;
+                            }
+
+                            font-size: .75rem;
+                            color: #666666;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 回到顶部按钮
+    .go-top {
+        display: none;
+
+        position: fixed;
+        left: 21.2rem;
+        top: 80%;
+
+        img {
+            width: 2.2rem;
+            height: 2.2rem;
+        }
+    }
+
+    // 排序弹窗
+    .sort-toast {
+        width: 6.25rem;
+        background-color: #ffffff;
+        border-radius: .25rem;
+        box-shadow: 0 0 .82rem rgba(0, 0, 0, 0.2);
+
+        position: fixed;
+        top: 11.625rem;
+        left: 12.2rem;
+        z-index: 1000;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        display: none;
+
+        span {
+            display: block;
+            text-align: center;
+            font-size: .9375rem;
+            height: 2.8rem;
+            line-height: 2.8rem;
+            color: #666;
+        }
+
+        :nth-child(2) {
+            border-bottom: .0313rem solid rgba(6, 6, 6, 0.11);
+            border-top: .0313rem solid rgba(6, 6, 6, 0.11);
+        }
+
+        .active {
+            color: #418FFF;
+        }
+    }
+
+    // .sort-toast::after{
+    //     content: '';
+    //     width: 100vw;
+    //     height: 100vh;
+    //     background-color: rgba(0, 0, 0, .1);
+
+    //     position: fixed;
+    //     top: 0;
+    //     left: 0;
+    //     z-index: 999;
+    // }
+}
