@@ -110,13 +110,13 @@ var baseconfig = {
             port: 3000,
             login_url: '/login',
 
-            // domain: '.wmb.com',
-            // hosts: ['www.wmb.com:3000', 'en.wmb.com:3000'],
-            // static: 'http://www.wmb.com:3000/',
+            domain: '.wmb.com',
+            hosts: ['www.wmb.com:3000', 'en.wmb.com:3000'],
+            static: 'http://www.wmb.com:3000/',
 
-            domain: '.52wmb.com',
-            hosts: ['paytest.52wmb.com'],
-            static: 'https://paytest.52wmb.com/',
+            // domain: '.52wmb.com',
+            // hosts: ['paytest.52wmb.com'],
+            // static: 'https://paytest.52wmb.com/',
 
             factory: 'development',
             line_image_path: 'https://static.52wmb.com/bangline/upload/images/',
