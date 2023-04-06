@@ -1,0 +1,79 @@
+<!-- 左侧公共tab -->
+<% console.log(results,"left_tab") %>
+    <% let tab_active=results.nav %>
+        <div class="left-nav">
+            <ul>
+                <li>
+                    <a href="/">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active=='index'?'active':'' %>">首页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/members">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active=='members'?'active':'' %>">发现人</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/postings">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active=='postings'?'active':'' %>">供求</span>
+                    </a>
+                </li>
+                <span class="line"></span>
+                <li>
+                    <a href="/me">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active=='me'?'active':'' %>">我的主页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active==''?'active':'' %>">与我有关</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active==''?'active':'' %>">供求收藏</span>
+                    </a>
+                </li>
+                <span class="line"></span>
+                <li>
+                    <a href="">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active==''?'active':'' %>">私信对话</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i>
+                            <img src="" alt="">
+                        </i>
+                        <span  class="<%=  tab_active==''?'active':'' %>">消息</span>
+                    </a>
+                </li>
+                <a href="javascript:void(0);">
+                    <i>
+                        <svg t="1679884820909" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2735" width="10" height="10"><path d="M927.07 469.31H554.66V96.94h-85.34v372.37H96.93v85.34h372.39v372.41h85.34V554.65h372.41z" fill="#ffffff" p-id="2736"></path></svg>
+                    </i>
+                    <span>发布供求</span>
+                </a>
+            </ul>
+        </div>

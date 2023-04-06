@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../global/head.ejs') %>
+    <title><%= results.detail.contents.slice(0, 30) %>-<%=translate('share_site_name')%></title>
+    <link rel="stylesheet" href="<%= STATIC %>css/group/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/nav.ejs') %>
+<div class="wrapper">
+    <div class="line-group">
+        <div class="group-content group-content-detail">
+            <div class="container">
+                <div class="group-module">
+                    <div class="module-item">
+                        <div class="item-content">
+                            <div class="topic-list active">
+                                <div class="topic-item">
+                                    <div class="item-author">
+                                        <a href="<%=ROUTE_LANG()%>/line/<%=results.detail.user_id%>">
+                                            <img class="head" src="<%=IMAGES_PATH%><%=results.detail.avatar%>" alt="">
+                                            <i class="line-v"></i>
+                                            <div class="name"><%=results.detail.name%></div>
+                                            <div class="sub">
+                                                <span class="country"><%=POS_SHOW(results.detail)%></span>
+                                                <span class="type"><%=results.detail.company_type_name%></span>
+                                            </div>
+                                        </a>
+                                        <div class="exchange">
+                                            <% if(results.detail.user_id != wglobals.user.uid){%>
+                                                <% if(results.detail.is_follow){%>
+                                                <button class="btn follow" data-uid="<%=results.detail.user_id%>" onclick="unfollow(this)"><%=translate('share_group_clean')%></button>
+                                                <%} else { %>
+                                                <button class="btn follow" data-uid="<%=results.detail.user_id%>" onclick="follow(this)"><%=translate('share_group_follow')%></button>
+                                                <%} %>
+                                                <a href="<%=MASTER_LANG()%>/user/line/letter?user_id=<%=results.detail.user_id%>" target="_blank" class="btn talk"><%=translate('share_group_message')%></a>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                    <div class="item-descript top"><%- results.detail.contents -%></div>
+                                    <%if(results.detail.images){%>
+                                        <div class="item-pics">
+                                            <% results.detail.images.split(',').forEach(function (im){%>
+                                            <div class="pic-item">
+                                                <img src="<%=IMAGES_PATH%><%=im%>" alt="">
+                                            </div>
+                                            <%})%>
+                                        </div>
+                                    <%}%>
+                                    <div class="item-position">
+                                        <span class="time"><%=SHOW_TIME(results.detail.create_time)%></span>
+                                        <div class="count-list">
+                                            <span class="count-item open-reply open-reply-<%=results.detail.id%>" data-avatar="<%=IMAGES_PATH%><%=wglobals.user.avatar%>" data-uname="<%=wglobals.user.name%>" data-state="close" onclick="open_reply(<%=results.detail.id%>)">
+                                                <i class="iconfont"><svg t="1663554634433" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2396" width="17" height="17"><path d="M938.666667 0 85.333333 0C38.4 0 0 38.4 0 85.333333l0 682.666667c0 46.933333 38.4 85.333333 85.333333 85.333333l42.666667 0c25.6 0 42.666667 17.066667 42.666667 42.666667l0 72.533333c0 46.933333 34.133333 68.266667 76.8 46.933333l264.533333-140.8c21.333333-12.8 55.466667-21.333333 81.066667-21.333333L938.666667 853.333333c46.933333 0 85.333333-38.4 85.333333-85.333333L1024 85.333333C1024 38.4 985.6 0 938.666667 0zM725.333333 597.333333 298.666667 597.333333c-25.6 0-42.666667-17.066667-42.666667-42.666667 0-25.6 21.333333-42.666667 42.666667-42.666667l426.666667 0c25.6 0 42.666667 17.066667 42.666667 42.666667C768 580.266667 746.666667 597.333333 725.333333 597.333333zM725.333333 341.333333 298.666667 341.333333C273.066667 341.333333 256 324.266667 256 298.666667c0-25.6 21.333333-42.666667 42.666667-42.666667l426.666667 0c25.6 0 42.666667 17.066667 42.666667 42.666667C768 324.266667 746.666667 341.333333 725.333333 341.333333z" p-id="2397" fill="#999999"></path></svg></i>
+                                                <font><%=results.detail.reply_count%></font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="item-reply">
+                                        <div class="reply-edit reply-edit-<%=results.detail.id%>"></div>
+                                        <% var topic_reply = results.detail.topic_reply, reply_list = topic_reply?JSON.parse(topic_reply): [] %>
+                                        <%if(reply_list.length > 0){%>
+                                            <div class="item-reply-content">
+                                                <div class="reply-content-list">
+                                                    <% results.reply = {list: reply_list} %>
+                                                    <%- include('./child/topic_reply.ejs') %>
+                                                </div>
+                                                <%if(results.detail.reply_count > 3 ){%>
+                                                <div class="reply-content-more">
+                                                    <button class="btn" data-tid="<%=results.detail.id%>" data-start="<%=reply_list.length%>" data-page="1" onclick="more_topic_reply(this)"><%=translate('share_group_more')%></button>
+                                                </div>
+                                                <%}%>
+                                            </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 浏览用户 -->
+                    <%if(results.member.total > 0){%>
+                    <div class="module-item">
+                        <div class="item-topic">
+                            <span class="title"><%=translate('group_ta_viewed')%></span>
+                            <font><%=translate('share_group_total')%><%=results.member.total%></font>
+                        </div>
+                        <div class="item-content" >
+                            <!-- 成员列表 -->
+                            <div class="member-list member-list-detail active" id="views_list">
+                                <%- include('./child/member.ejs') %>
+                            </div>
+                            <%if(results.member.has_next){%>
+                            <a class="list-more" data-page="2" data-tid="<%=results.detail.id%>" href="javascript:void(0)" onclick="more_views_users(this)"><%=translate('share_group_more_load')%></a>
+                            <%}%>
+                        </div>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../global/foot.ejs') %>
+<script src="<%=PLUGINS_STATIC%>swiper/swiper.min.js"></script>
+<script src="<%=STATIC%>js/group/default.js"></script>
+</body>
+
+</html>

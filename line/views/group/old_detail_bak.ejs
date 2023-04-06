@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../global/head.ejs') %>
+    <title>圈子广场</title>
+    <link rel="stylesheet" href="<%= PLUGINS_STATIC %>swiper/swiper.min.css">
+    <link rel="stylesheet" href="<%= STATIC %>css/group/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/nav.ejs') %>
+<div class="wrapper">
+    <div class="line-group">
+        <%- include('./child/head.ejs') %>
+        <!-- 内容展示 -->
+        <div class="group-content">
+            <!-- 滚动固定的tab -->
+            <div class="group-tab">
+                <div class="container">
+                    <div class="tab-list">
+                        <a class="tab-item active">圈子广场</a>
+                        <a class="tab-item" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/member">圈子成员<font>(<%=results.circle.user_count%>)</font></a>
+                        <a class="tab-item" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/topic">话题专区<font>(<%=results.circle.topic_count%>)</font></a>
+                    </div>    
+                    <a class="join-group" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/topic">发帖</a>                
+                    <% if(results.circle.is_join){%>
+                    <a class="join-group-out" data-gid="<%=results.circle.id%>" onclick="exit_group(this)">退出圈子</a>
+                    <% } else {%>
+                    <a class="join-group" data-gid="<%=results.circle.id%>" onclick="inbound_group(this)">加入圈子</a>
+                    <% } %>                    
+                </div>
+            </div>
+            <div class="container">
+                <!-- 小组广场 -->
+                <div class="group-module">
+                    <!-- 话题推荐 -->
+                    <div class="module-item">
+                        <div class="item-topic">
+                            <span class="title">话题推荐</span>
+                            <a class="link" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/topic">全部话题</a>
+                        </div>
+                        <div class="item-content">
+                            <!-- 话题列表 -->
+                            <div class="recommend-topic-list">
+                                <%  results.recommend_topic.forEach(function (item){%>
+                                <!-- top: 置顶，essence：精华 -->
+                                <a class="topic-item <%=item.sticky?'top':''%> <%=item.essence?'essence':''%>" href="<%ROUTE_LANG()%>/topic/<%=item.id%>" target="_blank">
+                                    <font class="topic-top">置顶</font>
+                                    <font class="topic-essence">精华</font>
+                                    <span class="topic-title"><%=item.contents.myslice(0, 30) %></span>
+                                    <span class="topic-time"><%=SHOW_TIME(item.create_time)%></span>
+                                </a>
+                                <%})%>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 成员推荐 -->
+                    <div class="module-item">
+                        <div class="item-topic">
+                            <span class="title">成员推荐</span>
+                            <a class="link" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/member">全部成员</a>
+                        </div>
+                        <div class="item-content">
+                            <!-- 成员列表 -->
+                            <div class="member-list active">
+                                <%- include('./child/member.ejs') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../global/foot.ejs') %>
+<script src="<%=STATIC%>plugins/swiper/swiper.min.js"></script>
+<script src="<%=STATIC%>js/group/default.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<%if(!results.topic.has_next){%>
+    <input type="hidden" class="not-next">
+<%}%>
+<%  var list = (results.topic || {}).list||[] %>
+<% list.forEach(function (item){%>
+<div class="topic-item">
+    <div class="item-author <%=item.online?'online': ''%> <%=item.vip > 0?'is-vip': ''%>">
+        <a href="<%=ROUTE_LANG()%>/line/<%=item.user_id%>">
+            <img class="head" src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
+            <i class="line-v"></i>
+            <div class="name"><%=item.name%><font <%=item.is_leader?'':'class=hide'%>><%=translate('group_master')%></font></div>
+            <div class="sub">
+                <span class="country"><%=POS_SHOW(item)%></span>
+                <span class="type"><%=item.company_type_name%></span>
+            </div>
+        </a>
+        <div class="exchange">
+            <% if(item.user_id != wglobals.user.uid){%>
+            <% if(item.is_follow){%>
+            <a class="btn follow" data-uid="<%=item.user_id%>" onclick="unfollow(this)"><%=translate('share_group_clean')%></a>
+            <%} else { %>
+            <a class="btn follow" data-uid="<%=item.user_id%>" onclick="follow(this)"><%=translate('share_group_follow')%></a>
+            <%} %>
+            <a href="<%=MASTER_LANG()%>/user/line/letter?user_id=<%=item.user_id%>" target="_blank" class="btn talk"><%=translate('share_group_message')%></a>
+            <%}%>
+        </div>
+    </div>
+    <!-- sticky: 置顶，essence：精华 -->
+    <div class="item-descript <%=item.sticky?'sticky':''%> <%=item.essence?'essence':''%>">
+        <%if(item.video){%>
+            <a data-src="<%=item.video%>" onclick="video_pop(this)" class="vedio-topic-link"><%=translate('group_view_video')%></a>
+        <%}%>
+        <font class="text-sticky"><%=translate('group_top')%></font>
+        <font class="text-essence"><%=translate('group_featured')%></font>
+        <%if(item.circle_id){%>
+        <% var content_data = BR_SLICE(item.contents, 1600) %> 
+            <%- content_data.html -%>
+            <%if(content_data.real_str.length > 1600){%>
+            <a class="post-over-link" target="_blank" href="<%=ROUTE_LANG()%>/topic/<%=item.id%>"><%=translate('share_group_detail')%></a>
+            <%}%>
+        <%}else{%>
+            <%- item.contents -%>       
+        <%}%>
+    </div>
+    <%if(item.images){%>
+    <div class="item-pics">
+        <% item.images.split(',').forEach(function (im){%>
+        <div class="pic-item">
+            <img src="<%=IMAGES_PATH%><%=im%>" alt="">
+        </div>
+        <%})%>
+    </div>
+    <%}%>
+    <div class="item-position">
+        <span class="time"><%=SHOW_TIME(item.create_time)%></span>
+        <div class="count-list">
+            <% var avatar = wglobals.user.avata? (IMAGES_PATH + wglobals.user.avatar):'https://static.52wmb.com/images/userphoto/80_member.jpg'%>
+            <span class="count-item open-reply open-reply-<%=item.id%>" data-avatar="<%=avatar%>" data-uname="<%=wglobals.user.name%>" data-state="close" onclick="open_reply(<%=item.id%>)">
+                <i class="iconfont"><svg t="1663554634433" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2396" width="18" height="18"><path d="M938.666667 0 85.333333 0C38.4 0 0 38.4 0 85.333333l0 682.666667c0 46.933333 38.4 85.333333 85.333333 85.333333l42.666667 0c25.6 0 42.666667 17.066667 42.666667 42.666667l0 72.533333c0 46.933333 34.133333 68.266667 76.8 46.933333l264.533333-140.8c21.333333-12.8 55.466667-21.333333 81.066667-21.333333L938.666667 853.333333c46.933333 0 85.333333-38.4 85.333333-85.333333L1024 85.333333C1024 38.4 985.6 0 938.666667 0zM725.333333 597.333333 298.666667 597.333333c-25.6 0-42.666667-17.066667-42.666667-42.666667 0-25.6 21.333333-42.666667 42.666667-42.666667l426.666667 0c25.6 0 42.666667 17.066667 42.666667 42.666667C768 580.266667 746.666667 597.333333 725.333333 597.333333zM725.333333 341.333333 298.666667 341.333333C273.066667 341.333333 256 324.266667 256 298.666667c0-25.6 21.333333-42.666667 42.666667-42.666667l426.666667 0c25.6 0 42.666667 17.066667 42.666667 42.666667C768 324.266667 746.666667 341.333333 725.333333 341.333333z" p-id="2397" fill="#999999"></path></svg></i>
+                <font><%=item.reply_count%></font>
+            </span>
+        </div>
+    </div>
+    <div class="item-reply">
+        <div class="reply-edit reply-edit-<%=item.id%>"></div>
+        <% var topic_reply = item.topic_reply, reply_list = topic_reply?JSON.parse(topic_reply): [] %>
+        <%if(reply_list.length > 0){%>
+        <div class="item-reply-content">
+            <div class="reply-content-list">
+            <% results.reply = {list: reply_list} %>
+            <%- include('./topic_reply.ejs') %>
+            </div>
+            <%if(item.reply_count > 3 ){%>
+            <div class="reply-content-more">
+                <a data-tid="<%=item.id%>" data-start="<%=reply_list.length%>" data-page="1" onclick="more_topic_reply(this)"><%=translate('share_group_more')%></a>
+            </div>
+            <%}%>
+        </div>
+        <%}%>
+    </div>
+</div>
+<%})%>

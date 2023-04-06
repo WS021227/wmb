@@ -1,0 +1,21 @@
+<style>
+    .group-select{text-align:center;padding:35px 30px;padding-bottom:40px;}
+    .group-img img{border-radius:100px;width:90px;height:90px;border:1px #ddd solid;padding:3px;background:#fff;}
+    .group-title{font-size:21.4px;font-weight:bold;color:#333;}
+    .group-descript{font-size:14.4px;line-height:150%;color:#333;padding:20px 0;}
+    .group-number{margin:10px 0;font-size:15.4px;margin-bottom:20px;}
+    .group-number font{padding:0 10px;color:#ccc;font-weight:100;}
+    .group-exchange .btn{cursor:pointer;display:inline-block;height:40px;line-height:40px;border-radius:3px;padding:0 45px;background:#005FB9;color:#fff;font-size:14.4px;font-weight:bold;}
+    .group-exchange label{display:block;color:#999;font-size:12px;}
+    .group-exchange label font{display:inline-block;padding-left:16px;position:relative;padding-top:7px;transform: scale(.8);}
+    .group-exchange label font input{height:12px;width:12px;background:#eee;border-radius:100px;position:absolute;left:0;top:9px;}
+</style>
+<div class="group-select">
+    <div class="line-group-item">
+        <div class="group-title"><%=translate('pop_no_post_title')%></div>
+        <div class="group-descript"><%=translate('pop_no_post_des')%></div>
+        <div class="group-exchange">
+            <a class="btn" href="<%=ROUTE_LANG()%>/group-<%=results.data.id%>"><%=translate('pop_no_post_button')%></a>
+        </div>
+    </div>
+</div>

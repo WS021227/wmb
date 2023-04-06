@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../global/head.ejs') %>
+    <title><%=keyreplace(translate('group_member_title'), '[@行业]',results.circle.circle_name)%>-<%=translate('share_site_name')%></title>
+    <link rel="stylesheet" href="<%= PLUGINS_STATIC %>swiper/swiper.min.css">
+    <link rel="stylesheet" href="<%= STATIC %>css/group/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/nav.ejs') %>
+<div class="wrapper">
+    <div class="line-group">
+        <%- include('./child/head.ejs') %>
+        <!-- 内容展示 -->
+        <div class="group-content">
+            <!-- 滚动固定的tab -->
+            <div class="group-tab">
+                <div class="container">
+                    <div class="tab-list">
+                        <a class="tab-item" href="<%=ROUTE_LANG()%>/group-<%=results.circle.id%>"><%=translate('group_posts')%><font>(<%=results.circle.topic_count%>)</font></a>
+                        <a class="tab-item active"><%=translate('group_members')%><font>(<%=results.circle.user_count%>)</font></a>
+                    </div>
+                    <!--a class="join-group" href="<%=ROUTE_LANG()%>/group-<%=results.circle.id%>"><%=translate('group_posting')%></a-->
+                    <% if(results.circle.is_join){%>
+                    <a class="join-group-out" data-gid="<%=results.circle.id%>" onclick="exit_group(this)"><%=translate('group_exit_group')%></a>
+                    <% } else {%>
+                    <a class="join-group" data-gid="<%=results.circle.id%>" onclick="inbound_group(this)"><%=translate('group_join_group')%></a>
+                    <% } %>
+                </div>
+            </div>
+            <div class="container">
+                <!-- 小组成员 -->
+                <div class="group-module">
+                    <!-- 成员推荐 -->
+                    <div class="module-item">
+                        <div class="item-topic">
+                            <div class="topic-tab">
+                                <div class="topic-tab-item member-sort tab active" data-has="1" data-value="1" data-next="0" data-target="#member_list"><%=translate('share_group_recommended')%></div>
+                                <div class="topic-tab-item member-sort tab"  data-value="2" data-target="#member_list"><%=translate('share_group_active')%></div>
+                                <div class="topic-tab-item member-sort tab"  data-value="3"  data-target="#member_list"><%=translate('share_group_latest')%></div>
+                            </div>
+                            <% var member_list = results.member.list || [], rc_total = member_list.length > 0?member_list[0].total_count:0 %>
+                            <span class="count member-total" data-total="<%=results.circle.user_count%>" data-rct="<%=rc_total%>">
+                                <%=translate('share_group_total')%><font class="ct"><%= rc_total %></font>
+                            </span>
+                        </div>
+                        <div class="item-content" id="member_list">
+                            <!-- 成员列表 -->
+                            <div class="member-list active tab-pane" data-has="1" data-loading=""  id="member_list_1">
+                                <%- include('./child/member.ejs') %>
+                            </div>
+                            <!-- 成员列表 -->
+                            <div class="member-list active tab-pane" data-has="1" data-loading="" data-page="2" id="member_list_2">
+                            </div>
+                            <div class="member-list tab-pane" data-page="2"  data-loading="1" id="member_list_3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../global/foot.ejs') %>
+<script src="<%=PLUGINS_STATIC%>swiper/swiper.min.js"></script>
+<script src="<%=STATIC%>js/group/default.js"></script>
+</body>
+
+</html>

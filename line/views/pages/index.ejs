@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../global/head.ejs') %>
+    <title><%=translate('home_website_title')%></title>
+    <link rel="stylesheet" href="<%= STATIC %>css/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/navbar.ejs') %>
+<%  var user = wglobals.user||{},users_active_list=results.users_active_list,user_recommend_list=results.users_recommend_list %>
+
+<div class="line-index-container" data-img="<%=IMAGES_PATH%>">
+    <%- include('../global/left_tab.ejs') %>
+    <div class="line-index-content">
+        <h1 id="line_index_active_recommend">
+            <span class="active" data-id=2>活跃</span>
+            <span data-id=1>推荐</span>
+        </h1>
+        <div class="user-content">
+            <% users_active_list.forEach(function(item,index){%>
+                <div class="user-content-box">
+                    <% if(item.cover!='cover_default.jpg'){ %>
+                            <img src="<%=IMAGES_PATH%><%=item.cover%>" alt="">
+                    <% } else {%>
+                            <span class="no-back"></span>
+                    <% } %>
+                    <div class="user-content-box-content">
+                        <img src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
+                        <span class="avatar"></span>
+                        <div>
+                            <h2><span class="name"><%=item.name%></span><span>(<%=item.country%>)</span></h2>
+                            <div><span>主页展示</span><span>123</span><font>|</font><span>供求</span><span>1452</span><font>|</font><span>关注</span><span>22352</span></div>
+                        </div>
+                        <div>
+                            <a href="javascript:void(0);" onclick="Messages()">发私信</a>
+                            <a id="follow" href="javascript:void(0);" data-id="<%= item.user_id %>" onclick="Concern(this)">
+                                <i>
+                                    <svg t="1679981150706" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2738" width="20" height="20"><path d="M288.191617 467.238323l447.616766 0 0 89.523353-447.616766 0 0-89.523353Z" fill="#333333" p-id="2739"></path><path d="M556.761677 288.191617l0 447.616766-89.523353 0 0-447.616766 89.523353 0Z" fill="#333333" p-id="2740"></path></svg>
+                                </i>
+                                关注
+                            </a>
+                        </div>
+                    </div>
+                    <div class="user-flag">
+                        <span><%=item.verb%></span>
+                        <span><%=item.position%></span>
+                    </div>
+                    <div class="user-bottom">
+                        <span>公司：<%=item.company_name%></span>
+                        <span>供应：<%=item.products%></span>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+        <span class="more" id="more">点击加载更多...</span>
+    </div>
+    <%- include('../global/line_right.ejs') %>
+</div>
+
+<script src="<%=STATIC%>js/default.js"></script>
+</body>
+</html>

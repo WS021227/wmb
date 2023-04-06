@@ -1,0 +1,21 @@
+
+<script type="application/javascript">
+    let wg = {user: {extended_auth: {}, user_functional: {}}};
+    try {
+        wg = <%-JSON.stringify(wglobals)%>
+    }catch (e){
+
+    }
+
+    if(!wg.user.extended_auth) wg.user.extended_auth = {}
+    if(!wg.user.user_functional) wg.user.user_functional = {}
+    console.log('wg', wg)
+</script>
+
+<script src="<%= PLUGINS_STATIC %>jquery-3.2.1.min.js"></script>
+<script src="<%= STATIC %>js/share.js?v=<%=VERSION%>"> </script>
+
+
+
+
+

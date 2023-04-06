@@ -1,0 +1,35 @@
+<%if(!results.member.has_next){%>
+    <input type="hidden" class="not-next">
+<%}%>
+<% results.member.list.forEach(function (item){%>
+<div class="member-item <%=item.online?'online': ''%> <%=item.vip > 0?'is-vip': ''%>">
+    <a href="<%ROUTE_LANG()%>/line/<%=item.user_id%>" target="_blank">
+        <div class="head">
+            <img src="<%=IMAGES_PATH%><%=item.avatar%>">
+            <i class="i-online"><%=translate('group_online')%></i>
+            <i class="line-v"></i>
+        </div>
+        <div class="name" href="javascript:void(0);" target="_blank"><%=item.name%><span>（<%=item.position%>）</span></div>
+    </a>
+    <div class="number"><%=item.promote_cnt%><%=translate('share_group_display')%><font>|</font><%=item.post_cnt%><%=translate('share_group_posts')%><font>|</font><%=item.attention_cnt%><%=translate('share_group_follow')%></div>
+    <div class="position"><%=translate('share_group_company')%>：<%=item.company_name%></div>
+    <div class="supplier"><%=item.verb%>：<%=item.products%></div>
+    <% if(item.topic_id){ %>
+    <div class="lately">
+        <div class="time"><%=SHOW_TIME(item.topic_create_time)%></div>
+        <a target="_blank" href="<%=ROUTE_LANG()%>/topic/<%=item.topic_id%>">
+            <div class="descript"><%- item.topic_contents -%></div>
+        </a>
+    </div>
+    <%}%>
+    <div class="ip"><%=translate('share_group_attribution')%>：<%=POS_SHOW(item)%></div>
+    <div class="exchange">
+        <% if(item.is_follow){%>
+        <a class="btn follow" data-uid="<%=item.user_id%>" onclick="unfollow(this)"><%=translate('share_group_clean')%></a>
+        <%} else { %>
+        <a class="btn follow" data-uid="<%=item.user_id%>" onclick="follow(this)"><%=translate('share_group_follow')%></a>
+        <%} %>
+        <a href="<%=MASTER_LANG()%>/user/line/letter?user_id=<%=item.user_id%>" target="_blank" class="btn talk"><%=translate('share_group_message')%></a>
+    </div>
+</div>
+<%})%>

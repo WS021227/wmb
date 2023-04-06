@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../global/head.ejs') %>
+  <title><%=keyreplace(translate('homepage_title'), '[@姓名]', results.user.name || '')%>-<%=translate('share_site_name')%></title>
+  <link rel="stylesheet" href="<%= STATIC %>css/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/nav.ejs') %>
+<% var user = results.user || {}%>
+<input type="hidden" value="<%=user.user_id%>" id="user_id">
+<div class="wrapper">
+  <div class="line-home">
+    <div class="topic">
+      <div class="container">
+        <div class="position">
+            <div class="position-img"><img src="<%=IMAGES_PATH%><%=user.cover%>"/></div>
+            <div class="position-c">
+            <div class="head"><img src="<%=IMAGES_PATH%><%=user.avatar%>" alt=""></div>
+            <div class="person-tag"><%=user.company_type_name%></div>
+            <div class="name"><%=user.name%><span>(<%=user.position%>)</span></div>
+            <div class="sub job"><%=translate('share_group_company')%>：<%=user.company_name%></div>
+            <div class="sub supplier">
+              <% var top_products = user.products.slice(0, 3)%>
+              <%=user.verb%>：<%=top_products.join(',') %>
+              <%if(user.products.length > 3){%>
+              <a href="javascript:void(0);" data-all="<%=user.products.join(',')%>" data-title="供应" onclick="pop_all(this)"><%=translate('share_group_more')%></a>
+              <%}%>
+            </div>
+            <div class="ip"><%=translate('share_group_attribution')%>：<%=POS_SHOW(user)%></div>
+            <div class="exchange">
+              <%if(user.user_id != wglobals.user.user_id){%>
+                <% if(user.is_follow){%>
+                <a class="btn follow" data-uid="<%=user.user_id%>" onclick="unfollow(this)"><%=translate('share_group_clean')%></a>
+                <%} else { %>
+                <a class="btn follow" data-uid="<%=user.user_id%>" onclick="follow(this)"><%=translate('share_group_follow')%></a>
+                <%} %>
+                <a href="<%=MASTER_LANG()%>/user/line/letter?user_id=<%=user.user_id%>" target="_blank" class="btn talk"><%=translate('homepage_message_to_ta')%></a>
+              <%}else{%>
+                <a href="<%=MASTER_LANG()%>/user/line/dynamic" target="_blank" class="btn talk"><%=translate('homepage_quick_posting')%></a>
+                <a href="<%=MASTER_LANG()%>/user/line/edit" target="_blank" class="btn talk"><%=translate('homepage_edit_info')%></a>
+              <%}%>
+            </div>
+            <div class="analyse-count">
+              <div class="count-item">
+                <div class="name"><%=translate('share_group_follow')%></div>
+                <div class="count"><%=user.attention_cnt || 0%></div>
+              </div>
+              <div class="count-item">
+                <div class="name"><%=translate('homepage_fans')%></div>
+                <div class="count"><%=user.fans || 0%></div>
+              </div>
+              <div class="count-item">
+                <div class="name"><%=translate('homepage_get_show')%></div>
+                <div class="count"><%=user.promote_cnt|| 0%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="container">
+        <div class="home-module">
+
+          <% if(results.topic.list){%>
+          <div class="home-module-content">
+            <div class="home-module-left">
+                <div class="module-content">
+                  <div class="person-resume">
+                    <div class="position">
+                      <img class="head" src="<%=IMAGES_PATH%><%=user.company_cover%>" alt="">
+                      <div class="company-name"><%=translate('homepage_company')%></div>
+                      <div class="company-descript" ><%=user.company_introduction.myslice(0, 150)%>
+                        <%if(user.company_introduction.length > 150){%>
+                        <a data-title="公司简介" data-all="<%=user.company_introduction%>" onclick="pop_all(this)">[<%=translate('share_group_detail')%>]</a>
+                        <%}%>
+                      </div>
+                      <div class="company-website"><%=translate('homepage_website')%>：<a href="<%=user.company_site%>" target="_blank"><%=user.company_site%></a></div>
+                      <div class="company-position"><%=translate('homepage_position')%>：<%=user.position%></div>
+                      <!--div class="company-position-time">任职：2021/7—至今</div-->
+                    </div>
+                  </div>
+                </div>
+      
+              <div class="module-topic">
+                <span class="title"><%=translate('homepage_dynamics')%></span>
+                <div class="rt">
+                  <div class="topic-tab">
+                    <div class="tab-item topic-sort tab active" data-has="1" data-value="1" data-target="#topic_list"><%=translate('share_group_active')%></div>
+                    <div class="tab-item topic-sort tab" data-value="2" data-target="#topic_list"><%=translate('share_group_latest')%></div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="topic_list">
+                <div class="topic-list active tab-pane" data-page="2" id="topic_list_1">
+                  <%- include('../group/child/topic.ejs') %>
+                </div>
+                <div class="topic-list tab-pane" data-page="2"  data-loading="1" id="topic_list_2">
+
+                </div>
+
+                <%  var list = (results.topic || {}).list||[], total = list.length > 0?list[0].total_count: 0%>
+                <% if(total <= 1){%>
+                  <div class="topic-no-content">
+                    <i><svg t="1663578185485" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6787" width="100" height="100"><path d="M888.7 775.5c0 32-167.4 56.7-376.7 56.7-207.4 0-376.7-24.6-376.7-56.7s167.4-56.7 376.7-56.7c207.4 0.1 376.7 24.7 376.7 56.7" fill="#DFDFDF" p-id="6788"></path><path d="M653.4 792.5H282.2c-31.4 0-56.8-25.4-56.8-56.8V227.9c0-16.5 13.4-29.9 29.9-29.9h400.4c16.5 0 29.9 13.4 29.9 29.9v532.4c0 17.8-14.4 32.2-32.2 32.2z" fill="#FFFFFF" p-id="6789"></path><path d="M653.4 798.7H282.2c-34.8 0-63-28.3-63-63V227.9c0-19.9 16.2-36.1 36.1-36.1h400.4c19.9 0 36.1 16.2 36.1 36.1v532.4c0 21.2-17.2 38.4-38.4 38.4zM255.3 204.2c-13.1 0-23.7 10.6-23.7 23.7v507.7c0 27.9 22.7 50.6 50.6 50.6h371.2c14.3 0 25.9-11.6 25.9-25.9V227.9c0-13.1-10.6-23.7-23.7-23.7H255.3z" fill="#A9B1B6" p-id="6790"></path><path d="M308 687s40.5 80.1-35 105.5c0 0-0.4 0 0 0 162.2 0 324.4 2 486.5-2 7.4-2 14.7-5.9 20.3-9.8 3.7-2 12.9-11.7 18.4-25.4 5.5-15.6 7.4-39.1-7.4-56.6-3.7-5.9-9.2-9.8-16.6-11.7H308.5" fill="#FFFFFF" p-id="6791"></path><path d="M515 798.9c-40.5 0-80.8-0.1-120.6-0.2-40.5-0.1-81-0.2-121.5-0.2l-0.1-6.3-1.8-5.4c19-6.4 31.7-17 37.7-31.6 11.9-29.2-5.9-65.1-6.1-65.5-1.5-3-0.3-6.6 2.6-8.1 1-0.5 2-0.7 3-0.6H775l0.8 0.2c8.8 2.4 15.6 7.2 20.1 14.3 19.4 23.1 11 53.2 7.9 61.9-6.2 15.2-16.3 26.1-21.3 28.7-6.2 4.5-14.3 8.3-21.5 10.3l-1.4 0.2c-81.2 1.9-163.4 2.3-244.6 2.3z m-216.6-12.4c32.1 0 64.1 0.1 96.1 0.2 119.3 0.4 242.8 0.7 364.2-2.2 5.7-1.6 12.1-4.8 17.7-8.7 3-1.6 11.3-10.4 16.3-22.7 2.4-6.9 9.4-31.6-6.4-50.5-3.2-5-7.3-7.9-12.8-9.6H317.1c5.2 13.8 13 41.7 2.8 66.7-4.5 10.8-11.7 19.7-21.5 26.8z" fill="#A9B1B6" p-id="6792"></path><path d="M287.7 269.9h153.4v38.4H287.7zM287.7 327.4h354.8v19.2H287.7zM287.7 394.5h76.7v38.4h-76.7zM287.7 452.1h306.8v19.2H287.7z" fill="#EDEEEE" p-id="6793"></path><path d="M287.7 528.8h230.1V548H287.7z" fill="#EDEEEE" p-id="6794"></path><path d="M297.3 567.1h182.2v19.2H297.3z" fill="#EDEEEE" p-id="6795"></path></svg></i>
+                    <span><%=translate('homepage_dynamics_no')%></span>
+                  </div>
+                <%}%>
+                <%if(results.topic.has_next){%>
+                <a class="list-more more-topic" onclick="more_topic()"><%=translate('share_group_more_load')%></a>
+                <%}%>
+              </div>
+            </div>
+            <%}%>
+            <div class="home-module-right">
+              <div class="module-item">
+                <div class="item-topic">
+                  <span class="title"><%=translate('homepage_related')%></span>
+                  <!--button class="change">换一批</button-->
+                </div>
+                <div class="item-content">
+                  <% var recommend_user = results.recommend_user ||{}, recommend_user_list = recommend_user.list ||[];%>
+                  <% if(recommend_user_list.length > 0){%>
+                  <div class="rd-list">
+                    <%recommend_user_list.forEach(function (item){%>
+                    <div class="rd-item">
+                      <a href="<%=ROUTE_LANG()%>/line/<%=item.user_id%>" target="_blank">
+                        <img class="head" src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
+                        <div class="name"><%=item.name%></div>
+                        <div class="sub"><%=item.company_type_name%><font>|</font><%=item.position%></div>
+                      </a>
+                      <button class="follow-btn" onclick="follow(this)"><%=translate('share_group_follow')%></button>
+                    </div>
+                    <%})%>
+                  </div>
+                  <%}%>
+                </div>
+              </div>
+              <div class="module-item">
+                <div class="item-topic">
+                  <span class="title"><%=translate('homepage_popular')%></span>
+                </div>
+                <div class="item-content">
+                  <div class="rd-list">
+                    <% results.circles.list.forEach(function (item){%>
+                    <div class="rd-item">
+                      <a href="<%=ROUTE_LANG()%>/group-<%=item.id%>" target="_blank">
+                        <img class="head" src="<%=IMAGES_PATH%>/<%=item.photo%>" alt="">
+                        <div class="name"><%=item.name%></div>
+                        <div class="sub"><%=item.topic_count%><%=translate('share_group_posts')%><font>|</font><%=item.user_count%><%=translate('share_group_member')%></div>
+                      </a>
+                      <a class="follow-btn" target="_blank" href="<%=ROUTE_LANG()%>/group-<%=item.id%>"><%=translate('homepage_enter')%></a>
+                    </div>
+                    <%})%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../global/foot.ejs') %>
+</body>
+
+</html>

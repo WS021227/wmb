@@ -1,0 +1,28 @@
+<%if(results.data.total > 0){%>
+    <% results.data.list.forEach(function (item){%>
+        <div class="person-item mbt">
+            <a href="<%=ROUTE_LANG()%>/line/<%=item.user_id%>" target="_blank">
+                <img class="head" src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
+                <div class="name"><%=item.name%></div>
+                <div class="number"><%=item.promote_cnt%><%=translate('share_group_display')%><font>|</font><%=item.post_cnt%><%=translate('share_group_posts')%><font>|</font><%=item.attention_cnt%><%=translate('share_group_follow')%></div>
+                <div class="position">(<%=item.position%>)</div>                
+                <div class="sub"><%=item.company_name%></div>
+                <div class="sub"><%=item.verb%>：<%=item.supply_demand.slice(0,20)%></div>
+                <div class="ip"><%=translate('share_group_attribution')%>：<%=item.country%></div>
+            </a>
+            <%if(item.is_follow){%>
+                <button class="add-friend" data-uid="<%=item.user_id%>" onclick="unfollow(this)"><%=translate('share_group_clean')%></button>
+            <%}else{%>
+                <button class="add-friend" data-uid="<%=item.user_id%>" onclick="follow(this)"><%=translate('share_group_follow')%></button>
+            <%}%>
+        </div>
+    <%})%>
+    <%if(!results.data.has_next){%>
+        <input type="hidden" id="member_not_next">
+    <%}%>
+<%}else{%>
+    <input type="hidden" id="member_not_next">
+<%}%>
+<% if(results.is_reload){%>
+    <input type="hidden" id="member_total" value="<%=results.data.total%>">
+<%}%>

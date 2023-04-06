@@ -1,0 +1,362 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* 公共顶部 */
+.line-header{
+    width: 100%;
+    padding: 16px 0;
+    font-size: 15px;
+    background-color: #f7f7f7;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.line-header>.center-box{
+    width: 1240px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.center-box .line-header-logo{
+    width: 150px;
+    height: 56px;
+}
+.center-box .line-header-input{
+    display: inline-block;
+
+    width: 650px;
+    color: #777;
+    border: 1px solid #777;
+    border-radius: 26px;
+    padding: 12px 18px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    position: relative;
+}
+.line-header-input>.select{
+    display: inline-block;
+}
+.select>span{
+    display: inline-block;
+    min-width: 45px;
+    text-align: center;
+}
+.line-header-input>.select-box{
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    z-index: 10000;
+    width: 102px;
+    background-color: #fff;
+    box-shadow: 0 0 4px #777;
+    padding-bottom: 15px;
+    display: none;
+}
+.line-header-input>.select-box>span{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    padding-top: 15px;
+}
+.line-header-input>.select-active{
+    display: block;
+    animation: show 0.5s ease 1;
+}
+@keyframes show {
+    0% {
+      transform: translateY(0%);
+    }
+  
+    50% {
+      transform: translateY(4%);
+    }
+  
+    100% {
+      transform: translateY(0%);
+    }
+}
+.select::after:hover{
+    display: block;
+}
+.line-header-input i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+.line-header-input i .icon{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 4px;
+    color: #777;
+}
+.line-header-input font{
+    color:  #ccc;
+    margin-left: 4px;
+}
+.line-header-input>input{
+    outline: none;
+    border: 0;
+    margin-left: 12px;
+    width: 400px;
+}
+
+/* 默认叉叉的样式修改 */
+input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    position: relative;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: url("../images/search_del.png") no-repeat center;
+    background-size: 100% 100%;
+    color:rgba(0,0,0,0);
+}
+input[type=search]::-ms-clear {
+    appearance: none;
+    position: relative;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: url("../images/search_del.png") no-repeat center;
+    background-size: 100% 100%;
+    color:rgba(0,0,0,0);
+}
+
+.line-header-input>a{
+    text-decoration: none;
+    color: #777;
+    margin-left: 70px;
+}
+.line-header>.center-box .line-header-right{
+    color: #333;
+    width: 320px;
+
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.line-header-right img{
+    display: inline-block;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.line-header-right a{
+    text-decoration: none;
+    font-weight: 600;
+    color: #333;
+}
+.line-header-right font{
+    margin: 0 8px;
+    color: #999;
+}
+
+/* 公共左侧tab */
+.left-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 150px;
+}
+.left-nav-fixed{
+    position: sticky;
+    top: 120px;
+}
+.left-nav ul{
+    list-style: none;
+}
+li{
+    margin-bottom: 30px;
+}
+li a {
+    text-decoration: none;
+    color: #333;
+}
+li a i{
+    display: inline-block;
+    width: 16px;
+    margin-right: 10px;
+    background: url('') no-repeat;
+    background-size: 16px 16px;
+}
+li a .active{
+    font-weight: 600;
+    color: #BD3124 !important;
+}
+
+ul>a{
+    width: 126px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    background-color: #007FFF;
+    font-size: 15px;
+    line-height: 22px;
+    padding: 12px 0;
+    border-radius: 10px;
+}
+
+ul>.line{
+    display: block;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+a>i{
+    display: inline-block;
+    height: 20px;
+    width: 10px;
+}
+a>i>.icon{
+    display: inline-block;
+}
+ul>a>span{
+    font-size: 15px;
+}
+ul>li>a>i{
+    height: 20px;
+}
+ul>li>a>i>img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+/* 布局右侧整体 */
+/* 公共右侧 同行公司、供求信息等 */
+.line-right{
+    width: 300px;
+}
+.line-right-fixed{
+    position: sticky;
+    top: 120px;
+    
+}
+.line-right .line-index-right{
+    width: 300px;
+    font-size: 14px;
+    color:#101010;
+    margin-bottom: 30px;
+    box-shadow: 0 0 4px #ccc;
+}
+
+.line-index-right h2{
+    font-size: 16px;
+    color: #101010;
+    border-bottom: 1px solid #999;
+    padding: 15px 20px;
+}
+
+.line-index-right ul{
+    padding: 20px 20px;
+    padding-bottom: 0;
+    list-style: none;
+}
+.line-index-right>.gq-more{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding-bottom: 20px;
+}
+.gq-more i{
+    height: 12px;
+    display: inline-block;
+}
+.gq-more i .icon{
+    display: inline-block;
+    vertical-align: middle;
+}
+ul li{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+ul li:nth-child(4){
+    margin-bottom: 0px;
+}
+
+ul li img{
+    width: 74px;
+    height: 74px;
+}
+ul li>div{
+    width: 170px;
+    font-size: 8px;
+}
+ul li>div>p{
+    font-weight: 600;
+    line-height: 14px;
+    height: 50px;
+}
+ul li>div span{
+    display: block;
+    margin-top: 10px;
+    color: #ccc;
+}
+
+/* 公共右侧顶部 */
+.line-right .me-overview{
+    width: 300px;
+    box-shadow: 0 0 4px #ccc;
+    margin-bottom: 30px;
+}
+
+.me-overview ul {
+    list-style: none;
+    display: flex;
+    height: 130px;
+    align-items: center;
+}
+.me-overview ul li{
+    width: 25%;
+    height: 80px;
+    font-size: 12px;
+    color: #777;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0 !important;
+}
+
+.me-overview>ul>li>img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+/* foot */
+.line-right .line-foot{
+    width: 300px;
+    color: #9A9A9A;
+    font-size: 12px;
+}
+
+/* 返回顶部 */
+.go_top{
+    width: 50px;
+    height: 50px;
+    display: none;
+
+    position: fixed;
+    top: 800px;
+    right: 60px;
+    z-index: 2;
+}
+
+.show{
+    display: block;
+}

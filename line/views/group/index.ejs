@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../global/head.ejs') %>
+    <title><%=translate('bline_group_title')%>-<%=translate('share_site_name')%></title>
+    <link rel="stylesheet" href="<%= STATIC %>css/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/nav.ejs') %>
+<%  var user = wglobals.user||{}; %>
+<div class="wrapper">
+    <div class="line-default">
+        <div class="content">
+            <div class="default-module-top">
+                <div class="container">
+                    <div class="module-content">
+                        <div class="module-topic-group">                            
+                            <div class="topic-tab-group-item"><font><%=translate('bline_group_hot')%></font></div>
+                            <div class="count-group"><%=translate('share_group_total')%><font id="member_count">2</font></div>                                                     
+                        </div>
+                        <div class="my-group-list">
+                            <% results.circle_list.forEach(function (item){%>
+                            <div class="my-group-item">
+                                  <div class="position">
+                                    <img class="head" src="<%=IMAGES_PATH%><%=item.photo%>" alt="">
+                                    <a href="<%=ROUTE_LANG()%>/group-<%=item.id%>" target="_blank"><div class="name"><%=item.name%><%=translate('share_group_title')%></div></a>
+                                    <div class="descript"><%=translate('share_group_introduction')%>：<%= item.introduction.myslice(0, 150) %></div>
+                                    <div class="member-list">
+                                        <span><%=translate('share_group_member')%>：</span>
+                                        <% item.circle_user_list.forEach(function (cuitem){%>
+                                        <a class="member-item" href="<%=ROUTE_LANG()%>/line/<%=cuitem.user_id%>" target="_blank"><img src="<%=IMAGES_PATH%><%=cuitem.avatar%>"></a>
+                                        <%})%>
+                                        <a class="all-member" href="<%=ROUTE_LANG()%>/group-<%=item.id%>/member" target="_blank"><%=translate('share_group_all')%></a>
+                                    </div>
+                                    <div class="analyse-count">
+                                        <div class="count-item">
+                                            <div class="type point"><%=translate('share_group_member')%></div>
+                                            <div class="count"><a target="_blank" href="<%=ROUTE_LANG()%>/group-<%=item.id%>/member"><%=item.user_count%></a></div>
+                                        </div>
+                                        <div class="count-item">
+                                            <div class="type point"><%=translate('share_group_posts')%></div>
+                                            <div class="count"><a target="_blank" href="<%=ROUTE_LANG()%>/group-<%=item.id%>/topic"><%=item.topic_count%></a></div>
+                                        </div>
+                                        <div class="count-item">
+                                            <div class="type point"><%=translate('share_group_view')%></div>
+                                            <div class="count"><%=item.view_count%></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}) %>
+                            <div class="my-group-item my-group-item-end">—— <%=translate('bline_group_other_stay')%> ——</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../global/foot.ejs') %>
+</body>
+</html>

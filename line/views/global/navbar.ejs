@@ -1,0 +1,60 @@
+<!-- 公共头部 -->
+<% console.log(wglobals,"公共头部") %>
+<!-- uid为外贸邦账号，user_id为是否开通了bline,未开通为null -->
+<% let uid=wglobals.user.uid || "",user_id=wglobals.user.user_id || "" %>
+    <div class="line-header">
+        <div class="center-box">
+            <img class="line-header-logo" src="" alt="">
+            <div class="line-header-input">
+                <div class="select">
+                    <span id="search_flag">外贸人</span>
+                    <i>
+                        <svg t="1679651918367" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="2717" width="12" height="12">
+                            <path
+                                d="M487.7 722.2l472.9-472.9c14.5-14.5 38-14.5 52.5 0s14.5 38 0 52.5L540.2 774.7c-14.5 14.5-38 14.5-52.5 0s-14.5-38 0-52.5z"
+                                p-id="2718" fill="#bfbfbf"></path>
+                            <path
+                                d="M483.8 774.7L10.9 301.8c-14.5-14.5-14.5-38 0-52.5s38-14.5 52.5 0l472.9 472.9c14.5 14.5 14.5 38 0 52.5s-38 14.5-52.5 0z"
+                                p-id="2719" fill="#bfbfbf"></path>
+                        </svg>
+                    </i>
+                </div>
+                <div class="select-box">
+                    <span>外贸人</span>
+                    <span>帖子</span>
+                </div>
+                
+                <font>|</font>
+                <input id="search_input" type="search" placeholder="请输入产品关键词，找采供真人，供求信息...">
+                <a href="">搜索</a>
+            </div>
+            <div class="line-header-right">
+                <!-- 已登陆 -->
+                <% if(uid) {%>
+                    <img src="https://static.52wmb.com/images/userphoto/80_<%=wglobals.user.photo || 'member.jpg'%>" alt="">
+                    <a><%= wglobals.user.contact.substr(0,5)+'...' %></a>
+                    <font>|</font>
+                    <a href="<%=MASTER_LANG()%>/user/line/edit">开通主页</a>
+                    <font>|</font>
+                    <%if(wglobals.lang == 'cn'){%>
+                        <a href="/en">English</a>
+                    <%} else{%>
+                        <a href="/">中文</a>
+                    <%}%>
+                    <font>|</font>
+                    <a href="javascript:viod();" onclick="sign_out()">退出</a>
+                <% }else{ %>
+                    <a href="<%=MASTER_LANG()%>/login"  onclick="return referrer_link(this)">登录</a>
+                    <font>|</font>
+                    <a href="<%=MASTER_LANG()%>/register"  onclick="return referrer_link(this)">免费注册</a>
+                    <font>|</font>
+                    <%if(wglobals.lang == 'cn'){%>
+                        <a href="/en">EN</a>
+                    <%} else{%>
+                        <a href="/">中文</a>
+                    <%}%>
+                <% } %>
+            </div>
+        </div>
+    </div>

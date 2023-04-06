@@ -1,0 +1,11 @@
+<% var reply_list = results.reply.list %>
+
+<%reply_list.forEach(function (ritem){%>
+<div class="reply-item">
+    <div class="reply-name"><a href="<%=ROUTE_LANG()%>/line/<%=ritem.user_id%>" target="_blank"><%=ritem.user_name%></a>:</div>
+    <div class="reply-content"><%=ritem.content%></div>
+</div>
+<%})%>
+<% if(results.reply.has_next == 0) {%>
+    <input type="hidden" class="not-next">
+<%}%>

@@ -1,0 +1,32 @@
+<input type="hidden" id="group_id" value="<%=results.circle.id%>">
+<input type="hidden" id="is_join_group" value="<%=results.circle.is_join%>">
+<!-- 主题 -->
+<div class="group-topic">
+    <div class="group-topic-img" style="background-image:url(<%=IMAGES_PATH%><%=results.circle.photo%>)"></div>
+    <div class="group-topic-color"></div>
+    <div class="container">
+        <div class="position">
+            <h1><%=results.circle.circle_name%><%=translate('share_group_title')%></h1>
+            <div class="topic-count">
+               <!-- <div class="count-item">成员：<strong><%=results.circle.user_count%></strong></div>
+                <div class="count-item">话题：<strong><%=results.circle.topic_count%></strong></div>-->
+                <div class="count-item">
+                    <i><svg t="1663577476852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2942" width="23" height="23"><path d="M724 839c15.464 0 28 12.536 28 28s-12.536 28-28 28H300c-15.464 0-28-12.536-28-28s12.536-28 28-28h424z m116-709c66.274 0 120 53.726 120 120v402c0 66.274-53.726 120-120 120H184c-66.274 0-120-53.726-120-120V250c0-66.274 53.726-120 120-120h656z m0 56H184c-34.993 0-63.426 28.084-63.991 62.942L120 250v402c0 34.993 28.084 63.426 62.942 63.991L184 716h656c34.993 0 63.426-28.084 63.991-62.942L904 652V250c0-34.993-28.084-63.426-62.942-63.991L840 186z m-67.304 115.396c10.885 10.765 11.09 28.248 0.543 39.265l-0.323 0.332-87.55 88.531a228 228 0 0 1-160.29 67.674l-1.826 0.007h-45.323a172 172 0 0 0-109.19 39.103l-0.929 0.77-78.874 65.736c-11.88 9.9-29.535 8.297-39.436-3.583-9.801-11.76-8.327-29.182 3.23-39.136l0.353-0.3 78.874-65.736a228 228 0 0 1 144.373-52.848l1.6-0.006h45.322a172 172 0 0 0 121.326-50.081l0.973-0.976 87.55-88.531c10.873-10.996 28.601-11.095 39.597-0.221z" p-id="2943" fill="#ffffff"></path></svg></i>
+                    <font><%=keyreplace(translate('group_visits'), '[@次数]', results.circle.view_count)%></font>
+                </div>
+            </div>
+            <div class="topic-descript"><%=results.circle.introduction%></div>
+            <div class="topic-captain">
+                <span><%=translate('group_master')%>：</span>
+                <div class="captain-list">
+                    <% results.circle.leader.forEach(function (item){%>
+                    <div class="captain-item">
+                        <a href="<%=ROUTE_LANG()%>/line/<%=item.user_id%>" target="_blank"><img src="<%=IMAGES_PATH%><%=item.avatar%>" alt=""></a>
+                    </div>
+                    <%}) %>
+                </div>
+            </div>
+            <img class="topic-head" src="<%=IMAGES_PATH%><%=results.circle.photo%>" alt="">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../global/head.ejs') %>
+    <title><%=translate('group_title')%>-<%=translate('share_site_name')%></title>
+    <link rel="stylesheet" href="<%= PLUGINS_STATIC %>swiper/swiper.min.css">
+    <link rel="stylesheet" href="<%= PLUGINS_STATIC %>cropper/cropper.min.css">
+    <link rel="stylesheet" href="<%= STATIC %>css/group/index.css?v=<%=VERSION%>">
+</head>
+
+<body>
+<%- include('../global/nav.ejs') %>
+<div class="wrapper">
+    <div class="line-group">
+        <%- include('./child/head.ejs') %>
+        <!-- 内容展示 -->
+        <div class="group-content">
+            <!-- 滚动固定的tab -->
+            <div class="group-tab">
+                <div class="container">
+                    <div class="tab-list">
+                        <a class="tab-item " href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>"><%=translate('group_posts')%></a>
+                        <a class="tab-item" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/member"><%=translate('group_members')%><font>(<%=results.circle.user_count%>)</font></a>
+                        <a class="tab-item active"><%=translate('group_posts')%><font>(<%=results.circle.topic_count%>)</font></a>
+                    </div>
+                    <a class="join-group" href="<%ROUTE_LANG()%>/group-<%=results.circle.id%>/topic">发帖</a>  
+                    <% if(results.circle.is_join){%>
+                    <a class="join-group-out" data-gid="<%=results.circle.id%>" onclick="exit_group(this)"><%=translate('group_exit_group')%></a>
+                    <% } else {%>
+                    <a class="join-group" data-gid="<%=results.circle.id%>" onclick="inbound_group(this)"><%=translate('group_join_group')%></a>
+                    <% } %>
+                </div>
+            </div>
+            <div class="container">
+                <!-- 话题专区 -->
+                <div class="group-module">
+                    <!-- 话题回复 -->
+                    <div class="module-item">
+                        <div class="item-content">
+                            <div class="topic-editor">
+                                <div class="position">
+                                    <img class="head" src="<%=IMAGES_PATH%><%=wglobals.user.avatar%>" alt="">
+                                    <div class="topic-edit">
+                                        <form id="topic_form">
+                                            <% if(!wglobals.user.uid ){ %>
+                                            <textarea class="reply-text"  name="contents" placeholder="登录后后可发帖"></textarea>
+                                            <%} else if(!wglobals.user.user_id){ %>
+                                                <textarea class="reply-text"  name="contents" placeholder="开通邦Line后可发帖"></textarea>
+                                            <%}else{%>
+                                            <textarea class="reply-text"  name="contents" placeholder="<%=wglobals.user.name%>,在圈里分享供求、问答、知识、八卦都行..."></textarea>
+                                            <%} %>
+                                            <input type="hidden" name="images">
+                                            <input type="hidden" name="circle_id" value="<%=results.circle.id%>">
+                                            <input type="hidden" value="" name="video">
+                                        </form>
+                                        <div class="topic-pics hide"></div>
+                                        <div class="video-src hide">
+                                            <span>视频地址：</span>
+                                            <input type="text" class="video-show" value="">
+                                            <!--span onclick="video_remove(this)">✕</span-->
+                                        </div>
+
+                                        <form id="form_topic_image_upload">
+                                            <input type="file" name="topic_image_file" hidden id="file_topic_image">
+                                        </form>
+                                        <div class="reply-exchange">
+                                            <label>
+                                                <button class="btn image-upload"><i class="iconfont"></i>添加图片</button>
+                                            </label>
+                                            <button class="btn" onclick="add_video()"><i class="iconfont"></i>插入视频</button>
+                                            <button class="btn reply" onclick="topic_add(this)">发布</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 话题列表 -->
+                    <div class="module-item">
+                        <div class="item-topic">
+                            <div class="topic-tab">
+                                <div class="topic-tab-item topic-sort tab active" data-has="1" data-value="1" data-target="#topic_list">活跃</div>
+                                <div class="topic-tab-item topic-sort tab"  data-value="2"  data-target="#topic_list">最新</div>
+                            </div>
+                            <% var list = results.topic.list, total = list.length >0 ?list[0].total_count:0%>
+                            <span class="count">共计<%=total%>个</span>
+                        </div>
+                        <div class="item-content" id="topic_list">
+                            <div class="topic-list active tab-pane" data-page="2" id="topic_list_1">
+                                <%- include('./child/topic.ejs') %>
+                            </div>
+                            <div class="topic-list tab-pane" data-page="2"  data-loading="1" id="topic_list_2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../global/foot.ejs') %>
+<script src="<%=PLUGINS_STATIC%>swiper/swiper.min.js"></script>
+<script src="<%=PLUGINS_STATIC%>cropper/avatar.js"></script>
+<script src="<%=PLUGINS_STATIC%>cropper/cropper.min.js"></script>
+<script src="<%=STATIC%>js/group/default.js"></script>
+</body>
+
+</html>
