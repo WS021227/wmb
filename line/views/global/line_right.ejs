@@ -1,6 +1,5 @@
-<% console.log(results,"供求信息数据") %>
 <% let data_list=results.users_recommend_list || [] %>
-
+<% let line_right_center_title=results.line_right_center_title %>
 <div class="line-right">
     <!-- 粘性定位用 只能用在子级--> 
     <div class="right-box">
@@ -8,7 +7,7 @@
 
     <div class="line-index-right <%= results.nav=='me'?'me-index-right':'' %>">
         <h2>
-            供求信息
+           <%= line_right_center_title %>
         </h2>
         <ul>
             <% data_list.forEach(function(item,index){ %>
@@ -21,12 +20,12 @@
                 </li>
             <% }) %>
         </ul>
-        <span id="gq-more" class="gq-more">
+        <a href="/postings" class="gq-more">
             更多
             <i>
                 <svg t="1680589810769" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2719" width="12" height="12"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z" p-id="2720" fill="#999999"></path></svg>    
             </i>
-        </span>
+        </a>
     </div>
 
     <%- include('../global/foot.ejs') %>

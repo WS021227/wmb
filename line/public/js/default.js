@@ -74,15 +74,16 @@ let search_key = {
     sort: 2,//1推荐、2活跃
     keyword: "",
     country:"",
-    type_id: "",
-    is_gq:"",
-    has_topic: "",
+    type_id: 0,
+    is_gq:1,
+    has_topic: 1,
     is_home:1
 }
+
 // 外贸人 or 帖子搜索 
-let search_input_flag=0
+let search_input_flag='/members'//默认搜外贸人
 let active_recommend = 2
-let search_num = 0
+let search_num = 10
 
 $(function () {
     $("body").append($(`<span class="go_top" id="go_top"><svg t="1679975082530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7627" width="50" height="50"><path d="M60.55936 960.55296a36.79232 36.79232 0 0 1 11.27424-28.49792L480.70656 476.3648a40.850432 40.850432 0 0 1 31.0272-14.27456c11.9296 0 23.26528 5.21216 31.0272 14.27456l408.79104 455.69024a41.385984 41.385984 0 0 1 11.37664 30.5152 41.417728 41.417728 0 0 1-14.20288 29.30688 40.599552 40.599552 0 0 1-30.22848 11.44832 40.625152 40.625152 0 0 1-29.00992-14.26432L511.6928 567.26528l-377.8048 421.7856a40.625152 40.625152 0 0 1-29.00992 14.26432 40.614912 40.614912 0 0 1-30.22848-11.44832 46.0032 46.0032 0 0 1-14.09024-31.31392z m0-441.76384a36.763648 36.763648 0 0 1 11.27424-28.49792L480.70656 34.60096a40.850432 40.850432 0 0 1 31.0272-14.27456c11.9296 0 23.26528 5.21216 31.0272 14.27456L951.552 490.2912a41.416704 41.416704 0 0 1-2.82624 59.82208 40.599552 40.599552 0 0 1-30.22848 11.44832 40.587264 40.587264 0 0 1-29.00992-14.26432L511.6928 125.4912 133.888 547.28704a40.677376 40.677376 0 0 1-29.00992 14.22336 40.674304 40.674304 0 0 1-30.22848-11.40736 45.966336 45.966336 0 0 1-14.09024-31.232v-0.08192z m0 0" fill="#BD3124" p-id="7628"></path></svg></span>`))
@@ -90,13 +91,13 @@ $(function () {
     // 首页
     // 活跃、推荐切换
     $('#line_index_active_recommend span').click(function () {
-        search_num = 0
+        search_num = 10
         search_key.start = 0
         active_recommend = $(this).data("id")
         search_key.sort = $(this).data("id")
         $(this).addClass("active").siblings().removeClass("active")
 
-        $.gajax('/async/get_active_recommend', {
+        $.loadajax('/async/get_active_recommend', {
             datatype: 'text',
             data: search_key,
             success: function (result) {
@@ -107,11 +108,12 @@ $(function () {
         })
     })
 
-    // 点击加载更多
-    $('#more').click(function () {
+    // 首页点击加载更多
+    $('#index_more').click(function () {
         search_num += 10
         search_key.start = search_num
-        $.gajax('/async/get_active_recommend', {
+
+        $.loadajax('/async/get_active_recommend', {
             datatype: 'text',
             data: search_key,
             success: function (result) {
@@ -120,6 +122,29 @@ $(function () {
                 }
             }
         })
+    })
+
+    // 外贸人 or 帖子 弹窗
+    $(".select").click(function(event){
+        event.stopPropagation();
+        if($('.select-box').hasClass('select-active')){
+            $('.select-box').removeClass("select-active")
+        }else{
+            $('.select-box').addClass("select-active")
+        }
+    })
+
+    // 外贸人 or 帖子 选择
+    $(".select-box span").click(function(){ 
+            $(this).addClass("active").siblings().removeClass("active")
+            $("#search_flag").text(`${$(this).text()}`)
+            search_input_flag=$(this).data('id')
+        }
+    )
+
+    $("html,body").click(function(event){
+        console.log("8888")
+        $('.select-box').removeClass('select-active')
     })
 
     // 侦听滚动条滚动
@@ -149,27 +174,6 @@ $(function () {
         $("html,body").animate({
             scrollTop: 0
         }, 500);
-    })
-
-    // 外贸人 or 帖子 弹窗
-    $(".select").click(function(event){
-        event.stopPropagation();
-        if($('.select-box').hasClass('select-active')){
-            $('.select-box').removeClass("select-active")
-        }else{
-            $('.select-box').addClass("select-active")
-        }
-    })
-
-    // 外贸人 or 帖子 选择
-    $(".select-box span").click(function(){ 
-            $("#search_flag").text(`${$(this).text()}`)
-        }
-    )
-
-    $("html,body").click(function(event){
-        console.log("8888")
-        $('.select-box').removeClass('select-active')
     })
 })
 
@@ -228,4 +232,23 @@ function Concern($this) {
     })
 }
 
-console.log(global_lang("share_open_line"),"翻译")
+// 公共navbar 搜索按钮
+function search_p_or_t(){
+    let search_text=get_search_input()
+
+    if(search_text){
+        search_key.is_home=0
+        search_key.keyword=search_text
+        $("#search_btn").attr("href",`${search_input_flag}/${search_key.keyword}`)
+    }
+}
+
+// search input
+function get_search_input(){
+    let search_key=$("#search_input").val()
+    if(search_key=="") {
+        layer.alert('搜索关键字不能为空！', {icon: 5});
+    }else{
+        return search_key
+    }
+}

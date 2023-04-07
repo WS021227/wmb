@@ -25,7 +25,15 @@ router.follow = function (req, res) {
     })
 }
 
-module.exports = router;
+// search搜索 
+router.search_person_or_post = function (req, res) {
+  let search = req.query
+  // tools.getMasterApiQuery('/line/users', search, req, res,
+  //   function (result) {
+  //     console.log(result,"人或者帖子数据")
+  //     res.send(result)
+  //   }
+  // )
+}
 
-//line one
-//line two
+module.exports = router;

@@ -57,6 +57,8 @@ let share_lang = {
 
   'layer_ok': { cn: '确认', en: 'I Know' },
   'layer_tips': { cn: '提示', en: 'Tips' },
+
+  'line_right_center_title':{cn:'供求信息',en:'supply and demand'}
 }
 
 

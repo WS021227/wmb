@@ -4,7 +4,8 @@ const tools = require('../../common/util.js')
 const router = express.Router();
 router.index = function (req, res) {
     var results = {
-        nav: 'index'
+        nav: 'index',
+        line_right_center_title:'供求信息'
     };
     async.series([//串行且无关 顺序执行
         function (cb) {
@@ -52,7 +53,7 @@ router.get_active_recommend = function (req, res) {
         res.send(result)
       }
     )
-  }
+}
 
 router.sign_out = function (req, res) {
     try {
@@ -66,16 +67,13 @@ router.sign_out = function (req, res) {
     res.send({})
 }
 
+// 导航统计
 router.nav_notification = function (req, res) {
     tools.login_verify(res, 2, function () {
         tools.getMasterApiQuery('/line/nav/stats', {}, req, res, function (result) {
             res.send(result)
         })
     })
-}
-
-function del_default_img(list){
-    console.log(list,"用户数据-------------------用户数据")
 }
 
 module.exports = router;

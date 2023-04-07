@@ -1,13 +1,15 @@
 <!-- 公共头部 -->
-<% console.log(wglobals,"公共头部") %>
 <!-- uid为外贸邦账号，user_id为是否开通了bline,未开通为null -->
+<% console.log(results,"navbar") %>
 <% let uid=wglobals.user.uid || "",user_id=wglobals.user.user_id || "" %>
+<% let search_key=results.search_key %>
     <div class="line-header">
         <div class="center-box">
             <img class="line-header-logo" src="" alt="">
             <div class="line-header-input">
+                <% let active=(results.nav=="postings"?results.nav:'members')%>
                 <div class="select">
-                    <span id="search_flag">外贸人</span>
+                    <span id="search_flag"><%= active=='members'?'外贸人':'供求' %></span>
                     <i>
                         <svg t="1679651918367" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="2717" width="12" height="12">
@@ -21,13 +23,13 @@
                     </i>
                 </div>
                 <div class="select-box">
-                    <span>外贸人</span>
-                    <span>帖子</span>
+                    <span data-id="/members" class="<%= active=='members'?'active':'' %>">外贸人</span>
+                    <span data-id="/postings" class="<%= active=='postings'?'active':'' %>">帖子</span>
                 </div>
                 
                 <font>|</font>
-                <input id="search_input" type="search" placeholder="请输入产品关键词，找采供真人，供求信息...">
-                <a href="">搜索</a>
+                <input id="search_input" type="search" placeholder="请输入产品关键词，找采供真人，供求信息..." value="<%= search_key %>">
+                <a id="search_btn" href="javascript:void(0);" onclick="search_p_or_t()">搜索</a>
             </div>
             <div class="line-header-right">
                 <!-- 已登陆 -->
