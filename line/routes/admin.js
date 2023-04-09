@@ -10,8 +10,6 @@ const common = require('./index');
 router.get('/', common.index);
 router.get('/async/nav/notification', common.nav_notification);
 router.get('/async/sign/out', common.sign_out);
-// 活跃推荐用户
-router.get('/async/get_active_recommend',common.get_active_recommend);
 
 // 发现人
 const members_url_map=require('./members/url_map');

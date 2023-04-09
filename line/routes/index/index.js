@@ -43,18 +43,6 @@ router.index = function (req, res) {
     })
 }
 
-// 获取活跃、推荐数据
-router.get_active_recommend = function (req, res) {
-    let search = req.query
-    console.log(search,"8888")
-    tools.getMasterApiQuery('/line/users', search, req, res,
-      function (result) {
-        console.log(result,"活跃、推荐数据")
-        res.send(result)
-      }
-    )
-}
-
 router.sign_out = function (req, res) {
     try {
         tools.setCookie(req, res, 'access_token', '', 0, false)
@@ -67,7 +55,7 @@ router.sign_out = function (req, res) {
     res.send({})
 }
 
-// 导航统计
+// 导航统计 新消息等等
 router.nav_notification = function (req, res) {
     tools.login_verify(res, 2, function () {
         tools.getMasterApiQuery('/line/nav/stats', {}, req, res, function (result) {

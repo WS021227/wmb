@@ -124,6 +124,23 @@ $(function () {
         })
     })
 
+    // 发现人加载更多
+    $('#members_more').click(function () {
+        search_num += 10
+        search_key.start = search_num
+        search_key.is_home=0
+
+        $.loadajax('/async/get_active_recommend', {
+            datatype: 'text',
+            data: search_key,
+            success: function (result) {
+                if (result.state == 0) {
+                    put_active_recommend(result.data.list, "more")
+                }
+            }
+        })
+    })
+
     // 外贸人 or 帖子 弹窗
     $(".select").click(function(event){
         event.stopPropagation();

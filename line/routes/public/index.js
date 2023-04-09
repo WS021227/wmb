@@ -25,6 +25,16 @@ router.follow = function (req, res) {
     })
 }
 
+// 默认数据
+router.get_active_recommend = function (req, res) {
+  let search = req.query
+  tools.getMasterApiQuery('/line/users', search, req, res,
+    function (result) {
+      res.send(result)
+    }
+  )
+}
+
 // search搜索 
 router.search_person_or_post = function (req, res) {
   let search = req.query

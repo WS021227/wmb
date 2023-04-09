@@ -228,7 +228,9 @@ h1>span{
     width: 340px;
 }
 .members-box-content>:nth-child(3) .gy{
+    display: inline-block;
     max-width: 280px !important;
+    vertical-align: bottom;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

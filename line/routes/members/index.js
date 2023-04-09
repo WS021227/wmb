@@ -26,26 +26,25 @@ router.members = function (req, res) {
             tools.getMasterApiQuery('/line/users', search_key, req, res,
             function (result) {
                 let data = result.state == 0 ? result.data || {} : {}
-                console.log(data,"默认外贸人")
                 results.users_list = data.list || []
                 results.total=data.total
                 cb(null, 1)
             }
         )
     },
-    // function (cb) {
-    //     /* 最新开通 */
-    //     tools.getMasterApiQuery('/line/topic/home/recommend', {
-    //         top_count:3
-    //         }, req, res,
-    //         function (result) {
-    //             console.log(result,"首页推荐供求数据")
-    //             let data = result.state == 0 ? result.data || {} : {}
-    //             results.users_recommend_list = data.list || []
-    //             cb(null, 1)
-    //         }
-    //     )
-    // },
+    function (cb) {
+        search_key.sort=3
+        search_key.size=3
+        /* 最新开通 */
+        tools.getMasterApiQuery('/line/users', search_key, req, res,
+            function (result) {
+                console.log(result,"最新开通数据")
+                let data = result.state == 0 ? result.data || {} : {}
+                results.users_recommend_list = data.list || []
+                cb(null, 1)
+            }
+        )
+    },
     ], function (err, _) {
         return res.wrender('./pages/members.ejs', {
             results: results
@@ -75,19 +74,6 @@ router.members_search = function (req, res) {
                 }
             )
         },
-        // function (cb) {
-        //     /* 最新开通 */
-        //     tools.getMasterApiQuery('/line/topic/home/recommend', {
-        //         top_count:3
-        //         }, req, res,
-        //         function (result) {
-        //             console.log(result,"首页推荐供求数据")
-        //             let data = result.state == 0 ? result.data || {} : {}
-        //             results.users_recommend_list = data.list || []
-        //             cb(null, 1)
-        //         }
-        //     )
-        // },
     ], function (err, _) {
         return res.wrender('./pages/members.ejs', {
             results: results
