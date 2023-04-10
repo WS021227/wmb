@@ -38,7 +38,6 @@ router.members = function (req, res) {
         /* 最新开通 */
         tools.getMasterApiQuery('/line/users', search_key, req, res,
             function (result) {
-                console.log(result,"最新开通数据")
                 let data = result.state == 0 ? result.data || {} : {}
                 results.users_recommend_list = data.list || []
                 cb(null, 1)

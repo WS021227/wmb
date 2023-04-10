@@ -254,27 +254,22 @@ ul>li>a>i>img{
     margin-bottom: 30px;
     box-shadow: 0 0 4px #ccc;
 }
-
 .line-index-right h2{
     font-size: 16px;
     color: #101010;
     border-bottom: 1px solid #999;
     padding: 15px 20px;
 }
-
 .line-index-right ul{
     padding: 20px 20px;
-    padding-bottom: 0;
     list-style: none;
 }
 .line-index-right>.gq-more{
     display: block;
     text-align: center;
     font-size: 12px;
-    line-height: 14px;
-    height: 14px;
     color: #999;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     text-decoration: none;
 }
 .gq-more i{
@@ -291,18 +286,25 @@ ul li{
     width: 100%;
     margin-bottom: 20px;
 }
-
-ul li:nth-child(4){
+.line-index-right>ul>li:nth-child(3){
     margin-bottom: 0px;
 }
 
 ul li img{
     width: 74px;
-    height: 74px;
+}
+ul li .members-img{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 ul li>div{
     width: 170px;
     font-size: 8px;
+}
+ul li>.members-right{
+    width: 200px;
 }
 ul li>div>p{
     font-weight: 600;
@@ -311,8 +313,27 @@ ul li>div>p{
 }
 ul li>div span{
     display: block;
-    margin-top: 10px;
+    margin-top: 5px;
     color: #ccc;
+}
+ul li div>.name{
+    display: inline-block;
+    font-size: 16px;
+    color: #101010;
+    max-width: 200px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+ul li div>.members-bottom{
+    margin-top: 0;
+    font-size: 14px;
+    max-width: 200px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 /* 公共右侧顶部 */

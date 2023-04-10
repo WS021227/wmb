@@ -9,7 +9,7 @@
 
 <body>
 <% console.log(results,"发现人数据") %>
-<% let user_list=results.users_list || [],total=results.total,search_key=results.search_key %>
+<% let user_list=results.users_list || [],total=results.total,search_key=results.search_key || "" %>
 <%- include('../global/navbar.ejs') %>
 <div class="line-index-container" data-img="<%=IMAGES_PATH%>">
     <%- include('../global/left_tab.ejs') %>
@@ -51,14 +51,21 @@
                 <% user_list.forEach(function(item,index){ %>
                     <div class="user-content-box members-box">
                         <div class="user-content-box-content members-box-content">
-                            <img src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
+
+                            <a href="/me">
+                                <img src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
+                            </a>
                             <span class="avatar"></span>
+
                             <div>
-                                <h2><span class="name"><%=item.name%></span><span>(<%=item.country%>)</span></h2>
+                                <a href="/me">
+                                    <h2><span class="name"><%=item.name%></span><span>(<%=item.country%>)</span></h2>
+                                </a>
                                 <div><span>任职：</span><span><%= item.position %></span><font>|</font><span><%= item.verb %>商</span></div>
                                 <div><span>职位：</span><span><%= item.position %></span></div>
                                 <div><span>供应：</span><span class="gy"><%= item.supply_demand %></span></div>
                             </div>
+
                             <div>
                                 <a href="javascript:void(0);" onclick="Messages()">发私信</a>
                                 <a id="follow" href="javascript:void(0);" data-id="" onclick="Concern(this)">
@@ -70,15 +77,23 @@
                             </div>
                         </div>
                         <div class="members-box-center">
-                        <div class="left">
-                                <p>但是开发建设打开了反抗势力的付款卡士大夫昆仑山地方吉萨大福晋安东尼附件昂克赛拉的反射的飞机喀什你飞机喀什附件啊可是对方南京埃斯顿妇女节卡上飞机看</p>
-                                <span>2023-03-26 发布</span>
+                            <div class="left <%= !item.topic_images?'no-img':'' %>">
+                                <a href="/me"></a>
+                                    <p>[我在<%= item.verb %>]<%= gq_title_format(item.topic_contents,100) %></p>
+                                </a>
+                                <span><%= item.topic_create_time.substr(0,10) %> 发布</span>
+                            </div>
+                            <% if(item.topic_images) {%>
+                                <a href="/me">
+                                    <img src="<%=IMAGES_PATH%><%= picture_format(item.topic_images) %>" alt="">
+                                </a>
+                            <% } %>
                         </div>
-                        <img src="" alt="">
-                        </div>
-                        <div class="members-box-bottom">
-                            <div>还有<span>5</span>条供应信息></div>
-                        </div>
+                        <% if(item.post_cnt>1){ %>
+                            <div class="members-box-bottom">
+                                <span>还有<%= item.post_cnt %>条供应信息</span>
+                            </div>
+                        <% } %>
                     </div>
                 <% }) %>
             </div>

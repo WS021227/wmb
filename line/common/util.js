@@ -847,12 +847,16 @@ module.exports = {
         let pic=pic_url.substr(0,index)
         return pic
     },
-    // 供求信息标题格式处理
-    gq_title_format(title){
-        if(title.length<=50) return title
+    picture_num(pic_url){
+        let num=pic_url.split(",").length - 1
+        return num
+    },
+    // 文本格式处理
+    gq_title_format(title,str_num){
+        if(title.length<=str_num) return title
         let new_title=title.replace(new RegExp('<br>', 'g'),'')
         let new_title1=new_title.replace(new RegExp('<br/>', 'g'),'')
-        return new_title1.substr(0,50)+'...'
+        return new_title1.substr(0,str_num)+'...'
     },
     // 供求信息日期格式处理
     gq_date_format(date){
@@ -860,5 +864,5 @@ module.exports = {
         let new_date=new Date(date)
         let day=today-new_date
         return new Date(day).getDay()
-    }
+    },
 }

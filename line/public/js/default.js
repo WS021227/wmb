@@ -67,7 +67,7 @@ function global_lang(key) {
 // 图片路径
 let img_src = $(".line-index-container").data("img")
 
-// 搜索参数
+// 首页、发现人搜索参数
 let search_key = {
     start: 0,
     size: 10,
@@ -80,10 +80,27 @@ let search_key = {
     is_home:1
 }
 
+// 供求搜索参数
+let postings_search_key = {
+    start: 0,
+    size: 20,
+    sort: 2,//1推荐、2活跃
+    keyword: "",
+    country:"",
+    type_id: 0,
+    is_gq:1,
+    has_reply: 0,
+    is_home:1,
+    has_follow:0,
+    is_manage:0,
+    user_id:0,
+    exclude_id:0
+}
+
 // 外贸人 or 帖子搜索 
 let search_input_flag='/members'//默认搜外贸人
 let active_recommend = 2
-let search_num = 10
+let search_num = 10,postings_search_num = 20
 
 $(function () {
     $("body").append($(`<span class="go_top" id="go_top"><svg t="1679975082530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7627" width="50" height="50"><path d="M60.55936 960.55296a36.79232 36.79232 0 0 1 11.27424-28.49792L480.70656 476.3648a40.850432 40.850432 0 0 1 31.0272-14.27456c11.9296 0 23.26528 5.21216 31.0272 14.27456l408.79104 455.69024a41.385984 41.385984 0 0 1 11.37664 30.5152 41.417728 41.417728 0 0 1-14.20288 29.30688 40.599552 40.599552 0 0 1-30.22848 11.44832 40.625152 40.625152 0 0 1-29.00992-14.26432L511.6928 567.26528l-377.8048 421.7856a40.625152 40.625152 0 0 1-29.00992 14.26432 40.614912 40.614912 0 0 1-30.22848-11.44832 46.0032 46.0032 0 0 1-14.09024-31.31392z m0-441.76384a36.763648 36.763648 0 0 1 11.27424-28.49792L480.70656 34.60096a40.850432 40.850432 0 0 1 31.0272-14.27456c11.9296 0 23.26528 5.21216 31.0272 14.27456L951.552 490.2912a41.416704 41.416704 0 0 1-2.82624 59.82208 40.599552 40.599552 0 0 1-30.22848 11.44832 40.587264 40.587264 0 0 1-29.00992-14.26432L511.6928 125.4912 133.888 547.28704a40.677376 40.677376 0 0 1-29.00992 14.22336 40.674304 40.674304 0 0 1-30.22848-11.40736 45.966336 45.966336 0 0 1-14.09024-31.232v-0.08192z m0 0" fill="#BD3124" p-id="7628"></path></svg></span>`))
@@ -135,8 +152,22 @@ $(function () {
             data: search_key,
             success: function (result) {
                 if (result.state == 0) {
-                    put_active_recommend(result.data.list, "more")
+                    put_members(result.data.list, "more")
                 }
+            }
+        })
+    })
+
+    // 供求加载更多
+    $('#postings_more').click(function () {
+        postings_search_num += 20
+        postings_search_key.start = postings_search_num
+
+        $.loadajax('/async/postings/get_postings_list', {
+            datatype: 'text',
+            data: postings_search_key,
+            success: function (result) {
+                put_postings(result.users_list, "more")
             }
         })
     })
@@ -195,7 +226,7 @@ $(function () {
 })
 
 
-// 首页搜索渲染
+// 首页渲染
 function put_active_recommend(list, more) {
     if (!more) {
         $('.user-content .user-content-box').remove()
@@ -203,7 +234,7 @@ function put_active_recommend(list, more) {
     list.forEach(function (item, index) {
         let $box = $(`
         <div class="user-content-box">
-                    ${item.cover!='cover_default.jpg'?`<img src="${img_src}${item.cover}" alt="">`:'<span class="no-back"></span>'}
+                    <img src="${img_src}${item.cover}" alt="">
                     <div class="user-content-box-content">
                         <img src='${img_src}${item.avatar}' alt="">
                         <span class="avatar"></span>
@@ -235,18 +266,95 @@ function put_active_recommend(list, more) {
     });
 }
 
+// 发现人渲染
+function put_members(list, more) {
+    if (!more) {
+        $('.user-content .user-content-box').remove()
+    }
+    list.forEach(function (item, index) {
+        let $box = $(`
+        <div class="user-content-box members-box">
+                        <div class="user-content-box-content members-box-content">
+                            <img src='${img_src}${item.avatar}' alt="">
+                            <span class="avatar"></span>
+                            <div>
+                                <h2><span class="name">${item.name}</span><span>(${item.country})</span></h2>
+                                <div><span>任职：</span><span>${item.position}</span><font>|</font><span>${item.verb}商</span></div>
+                                <div><span>职位：</span><span>${item.position}</span></div>
+                                <div><span>供应：</span><span class="gy">${item.supply_demand}</span></div>
+                            </div>
+                            <div>
+                                <a href="javascript:void(0);" onclick=${Messages()}>发私信</a>
+                                <a id="follow" href="javascript:void(0);" data-id="" onclick=${Concern(this)}>
+                                    <i>
+                                        <svg t="1679981150706" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2738" width="20" height="20"><path d="M288.191617 467.238323l447.616766 0 0 89.523353-447.616766 0 0-89.523353Z" fill="#333333" p-id="2739"></path><path d="M556.761677 288.191617l0 447.616766-89.523353 0 0-447.616766 89.523353 0Z" fill="#333333" p-id="2740"></path></svg>
+                                    </i>
+                                    关注
+                                </a>
+                            </div>
+                        </div>
+                        <div class="members-box-center">
+                            <div class="left ${!item.topic_images?'no-img':''}">
+                                <p>[我在${item.verb}]${gq_title_format(item.topic_contents,100)}</p>
+                                <span>${item.topic_create_time.substr(0,10)}发布</span>
+                            </div>
+                            ${item.topic_images?`<img src="${img_src}${picture_format(item.topic_images)}" alt="">`:""}
+                        </div>
+                       ${item.post_cnt>1?`<div class="members-box-bottom"><span>还有${item.post_cnt}条供应信息</span></div>`:''}
+                    </div>
+        `)
+        $('.members-box-list').append($box)
+    });
+}
+
+// 供求渲染
+function put_postings(list, more) {
+    if (!more) {
+        $('.user-content .user-content-box').remove()
+    }
+    list.forEach(function (item, index) {
+        let $box = $(`
+        <div class="postings-box">
+                        <h3>
+                            <img src="${img_src}${picture_format(item.images)}" alt="">
+                        </h3>
+                        <p>
+                            <span>[${item.verb}]</span>
+                            ${ gq_title_format(item.contents,100) }
+                        </p>
+                        <div class="bottom">
+                            <img src="${img_src}${ item.avatar }" alt="">
+                            <div>
+                                <span>${ item.name }发布</span>
+                                <span>${ item.ip_country_name?item.ip_country_name:item.country }${ item.ip_pro_name?item.ip_pro_name:"" }<font>|</font>${ item.company_type_name }</span>
+                            </div>
+                        </div>
+                        ${picture_num(item.images)!=0?`<span class="num">${ picture_num(item.images) }</span>`:""}
+                       
+        </div>
+        `)
+        $('.postings-box-list').append($box)
+    });
+}
+
+// 关注
+function Messages($this) {
+    return false
+}
+
 // 关注
 function Concern($this) {
-    let user_id = $($this).data("id")
+    return false
+    // let user_id = $($this).data("id")
 
-    console.log(user_id,"ididid")
-    $.gajax('/async/follow', {
-        type: "POST",
-        data: {user_id: user_id},
-        success: function (result) {
-            console.log(result,"关注")
-        }
-    })
+    // console.log(user_id,"ididid")
+    // $.gajax('/async/follow', {
+    //     type: "POST",
+    //     data: {user_id: user_id},
+    //     success: function (result) {
+    //         console.log(result,"关注")
+    //     }
+    // })
 }
 
 // 公共navbar 搜索按钮

@@ -288,6 +288,33 @@ jQuery.extend({
         }
     }
 })
+
+// 图片格式处理
+function picture_format(pic_url){
+  console.log(pic_url,"头像地址")
+  let index=pic_url.indexOf(',')
+  if(index==-1) return pic_url
+  let pic=pic_url.substr(0,index)
+  return pic
+}
+function picture_num(pic_url){
+  let num=pic_url.split(",").length - 1
+  return num
+}
+// 文本格式处理
+function gq_title_format(title,str_num){
+  if(title.length<=str_num) return title
+  let new_title=title.replace(new RegExp('<br>', 'g'),'')
+  let new_title1=new_title.replace(new RegExp('<br/>', 'g'),'')
+  return new_title1.substr(0,str_num)+'...'
+}
+// 供求信息日期格式处理
+function gq_date_format(date){
+  let today=new Date()
+  let new_date=new Date(date)
+  let day=today-new_date
+  return new Date(day).getDay()
+}
 /**
  * 统一翻译方法
  * @param key

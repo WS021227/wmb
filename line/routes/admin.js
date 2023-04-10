@@ -15,7 +15,7 @@ router.get('/async/sign/out', common.sign_out);
 const members_url_map=require('./members/url_map');
 router.use('/', members_url_map);
 
-// 供应
+// 供求
 const postings_url_map=require('./postings/url_map');
 router.use('/', postings_url_map);
 
