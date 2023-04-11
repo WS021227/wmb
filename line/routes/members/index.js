@@ -3,22 +3,21 @@ const async = require('async');
 const tools = require('../../common/util.js')
 const router = express.Router();
 
-// 供求
+// 发现人
 router.members = function (req, res) {
     let results={
         nav : 'members',
         line_right_center_title : '最新开通'
     }
-    let search_key = {
+    let search_key={
         start: 0,
-        size: 10,
         sort: 2,
-        keyword: "",
-        country:"",
-        type_id: 0,
+        size: 10,
+        is_home:0,
         is_gq:1,
-        has_topic: 1,
-        is_home:0
+        has_topic:1,
+        keyword:"",
+        country:""
     }
     async.series([//串行且无关 顺序执行
         function (cb) {

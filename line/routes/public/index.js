@@ -28,8 +28,10 @@ router.follow = function (req, res) {
 // 默认数据
 router.get_active_recommend = function (req, res) {
   let search = req.query
+  console.log(search,"969999696969696")
   tools.getMasterApiQuery('/line/users', search, req, res,
     function (result) {
+      console.log(result,"发现人加载更多数据")
       res.send(result)
     }
   )

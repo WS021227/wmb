@@ -853,6 +853,7 @@ module.exports = {
     },
     // 文本格式处理
     gq_title_format(title,str_num){
+        console.log(title,"文本文本文本文本文本")
         if(title.length<=str_num) return title
         let new_title=title.replace(new RegExp('<br>', 'g'),'')
         let new_title1=new_title.replace(new RegExp('<br/>', 'g'),'')

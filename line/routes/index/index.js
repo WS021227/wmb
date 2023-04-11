@@ -7,16 +7,22 @@ router.index = function (req, res) {
         nav: 'index',
         line_right_center_title:'供求信息'
     };
+    let key={
+        start: 0,
+        sort: 2,
+        size: 10,
+        is_home:1,
+        is_gq:1,
+        has_topic:0,
+        keyword:"",
+        country:""
+    }
     async.series([//串行且无关 顺序执行
         function (cb) {
             /*活跃用户*/
-            tools.getMasterApiQuery('/line/users', {
-                    start: 0,
-                    sort: 2,
-                    size: 10,
-                    is_home:1
-                }, req, res,
+            tools.getMasterApiQuery('/line/users', key, req, res,
                 function (result) {
+                    console.log(result,"首页活跃用户999")
                     let data = result.state == 0 ? result.data || {} : {}
                     results.users_active_list = data.list || []
                     cb(null, 1)

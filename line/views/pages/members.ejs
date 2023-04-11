@@ -51,14 +51,12 @@
                 <% user_list.forEach(function(item,index){ %>
                     <div class="user-content-box members-box">
                         <div class="user-content-box-content members-box-content">
-
-                            <a href="/me">
+                            <a href="/detail/<%=item.user_id%>">
                                 <img src="<%=IMAGES_PATH%><%=item.avatar%>" alt="">
                             </a>
                             <span class="avatar"></span>
-
                             <div>
-                                <a href="/me">
+                                <a href="/detail/<%=item.user_id%>">
                                     <h2><span class="name"><%=item.name%></span><span>(<%=item.country%>)</span></h2>
                                 </a>
                                 <div><span>任职：</span><span><%= item.position %></span><font>|</font><span><%= item.verb %>商</span></div>
@@ -78,13 +76,13 @@
                         </div>
                         <div class="members-box-center">
                             <div class="left <%= !item.topic_images?'no-img':'' %>">
-                                <a href="/me"></a>
+                                <a href="/detail/<%=item.user_id%>">
                                     <p>[我在<%= item.verb %>]<%= gq_title_format(item.topic_contents,100) %></p>
                                 </a>
                                 <span><%= item.topic_create_time.substr(0,10) %> 发布</span>
                             </div>
                             <% if(item.topic_images) {%>
-                                <a href="/me">
+                                <a href="/detail/<%=item.user_id%>">
                                     <img src="<%=IMAGES_PATH%><%= picture_format(item.topic_images) %>" alt="">
                                 </a>
                             <% } %>

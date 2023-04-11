@@ -12,16 +12,16 @@ router.get('/async/nav/notification', common.nav_notification);
 router.get('/async/sign/out', common.sign_out);
 
 // 发现人
-const members_url_map=require('./members/url_map');
+const members_url_map = require('./members/url_map');
 router.use('/', members_url_map);
 
 // 供求
-const postings_url_map=require('./postings/url_map');
+const postings_url_map = require('./postings/url_map');
 router.use('/', postings_url_map);
 
-// 我的主页
-const me_url_map=require('./me/url_map');
-router.use('/', me_url_map);
+// 用户详情
+const detail_url_map = require('./detail/url_map');
+router.use('/', detail_url_map);
 
 // line
 const line_url_map = require('./line/url_map');

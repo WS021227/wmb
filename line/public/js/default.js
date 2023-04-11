@@ -70,14 +70,13 @@ let img_src = $(".line-index-container").data("img")
 // 首页、发现人搜索参数
 let search_key = {
     start: 0,
+    sort: 2,
     size: 10,
-    sort: 2,//1推荐、2活跃
-    keyword: "",
-    country:"",
-    type_id: 0,
+    is_home:1,
     is_gq:1,
-    has_topic: 1,
-    is_home:1
+    has_topic:0,
+    keyword:"",
+    country:""
 }
 
 // 供求搜索参数
@@ -129,7 +128,7 @@ $(function () {
     $('#index_more').click(function () {
         search_num += 10
         search_key.start = search_num
-
+        
         $.loadajax('/async/get_active_recommend', {
             datatype: 'text',
             data: search_key,
@@ -146,6 +145,7 @@ $(function () {
         search_num += 10
         search_key.start = search_num
         search_key.is_home=0
+        search_key.has_topic=1
 
         $.loadajax('/async/get_active_recommend', {
             datatype: 'text',
@@ -228,6 +228,7 @@ $(function () {
 
 // 首页渲染
 function put_active_recommend(list, more) {
+    console.log(list,"首页活跃用户列表")
     if (!more) {
         $('.user-content .user-content-box').remove()
     }
@@ -268,6 +269,7 @@ function put_active_recommend(list, more) {
 
 // 发现人渲染
 function put_members(list, more) {
+    console.log(list,"发现人加载更多！！！")
     if (!more) {
         $('.user-content .user-content-box').remove()
     }
@@ -275,10 +277,14 @@ function put_members(list, more) {
         let $box = $(`
         <div class="user-content-box members-box">
                         <div class="user-content-box-content members-box-content">
-                            <img src='${img_src}${item.avatar}' alt="">
+                            <a href='/detail/${item.user_id}'> 
+                                <img src='${img_src}${item.avatar}' alt="">
+                            </a>
                             <span class="avatar"></span>
                             <div>
-                                <h2><span class="name">${item.name}</span><span>(${item.country})</span></h2>
+                                <a href='/detail/${item.user_id}'> 
+                                    <h2><span class="name">${item.name}</span><span>(${item.country})</span></h2>
+                                </a>
                                 <div><span>任职：</span><span>${item.position}</span><font>|</font><span>${item.verb}商</span></div>
                                 <div><span>职位：</span><span>${item.position}</span></div>
                                 <div><span>供应：</span><span class="gy">${item.supply_demand}</span></div>
@@ -295,10 +301,14 @@ function put_members(list, more) {
                         </div>
                         <div class="members-box-center">
                             <div class="left ${!item.topic_images?'no-img':''}">
-                                <p>[我在${item.verb}]${gq_title_format(item.topic_contents,100)}</p>
+                                <a href='/detail/${item.user_id}'>     
+                                    <p>[我在${item.verb}]${gq_title_format(item.topic_contents,100)}</p>
+                                </a>
                                 <span>${item.topic_create_time.substr(0,10)}发布</span>
                             </div>
-                            ${item.topic_images?`<img src="${img_src}${picture_format(item.topic_images)}" alt="">`:""}
+                            <a href='/detail/${item.user_id}'> 
+                                ${item.topic_images?`<img src="${img_src}${picture_format(item.topic_images)}" alt="">`:""}
+                            </a>
                         </div>
                        ${item.post_cnt>1?`<div class="members-box-bottom"><span>还有${item.post_cnt}条供应信息</span></div>`:''}
                     </div>
