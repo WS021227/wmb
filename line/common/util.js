@@ -143,7 +143,7 @@ module.exports = {
     wApi: function (url, method, data, request, resp, fn, options) {
         options = options || {}
         options['has_login'] = options.has_login != null ? options.has_login : true
-        //
+        console.log(options.has_login,"是否需要登录")
         let headers = this.wApiHeaders(request, resp, options.has_login, {})
         this.httpQuery(url, method, data, fn, options, headers)
     },
