@@ -368,10 +368,18 @@ ul li div>.members-bottom{
 }
 
 /* foot */
-.line-right .line-foot{
-    width: 300px;
+.line-foot{
+    width: 1240px;
     color: #9A9A9A;
     font-size: 12px;
+    padding: 20px 0;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+.line-foot>div{
+    width: 1020px;
 }
 
 /* 返回顶部 */
@@ -381,7 +389,7 @@ ul li div>.members-bottom{
     display: none;
 
     position: fixed;
-    top: 800px;
+    top: 1020px;
     right: 60px;
     z-index: 2;
 }

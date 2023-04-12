@@ -9,7 +9,7 @@ router.user_xq = function (req, res) {
 
     let results={
         nav : 'members',
-        title:'',
+        title:'同行推荐',
         search_key:req.params.user_id || "",
         children:'members-detail'
     }
