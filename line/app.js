@@ -187,4 +187,5 @@ app.locals['picture_format'] = util.picture_format
 app.locals['gq_title_format'] = util.gq_title_format
 app.locals['gq_date_format'] = util.gq_date_format
 app.locals['picture_num'] = util.picture_num
+app.locals['products_format'] = util.products_format
 module.exports = app;

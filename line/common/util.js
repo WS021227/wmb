@@ -143,7 +143,7 @@ module.exports = {
     wApi: function (url, method, data, request, resp, fn, options) {
         options = options || {}
         options['has_login'] = options.has_login != null ? options.has_login : true
-        console.log(options.has_login,"是否需要登录")
+        //
         let headers = this.wApiHeaders(request, resp, options.has_login, {})
         this.httpQuery(url, method, data, fn, options, headers)
     },
@@ -156,7 +156,6 @@ module.exports = {
      * @returns {{"client-lang": *, "client-device": (string|*)}}
      */
     wApiHeaders: function (request, resp, has_login, headers) {
-        console.log(resp.locals,"00000")
         headers['client-device'] = resp.locals.wglobals.device
         headers['client-lang'] = resp.locals.wglobals.lang
         headers['client-ip'] = resp.locals.wglobals.client_ip
@@ -866,4 +865,10 @@ module.exports = {
         let day=today-new_date
         return new Date(day).getDay()
     },
+    // 格式转化
+    products_format(array){
+        let new_pro=array.slice(0,5)
+        if(array.length>5) return new_pro
+        return array
+    }
 }

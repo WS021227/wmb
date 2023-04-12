@@ -9,21 +9,22 @@
 </head>
 
 <body>
+<% let user_data=results.users_data %>
+<% console.log(user_data,"当前用户数据") %>
 <%- include('../global/navbar.ejs') %>
-
 <div class="line-index-container" data-img="<%=IMAGES_PATH%>">
     <%- include('../global/left_tab.ejs') %>
     <div class="line-index-content me-index-content">
         <div class="me-content-head">
-            <div class="back">
+            <div class="back" style="background-image: url('<%=IMAGES_PATH%><%= user_data.cover %>');">
                 <span>编辑主页</span>
             </div>
-            <img src="" alt="">
+            <img src="<%=IMAGES_PATH%><%= user_data.avatar %>" alt="">
             <h1>
-                <span>kk(000)</span>
+                <span><%= user_data.name %>(<%= user_data.country %>)</span>
             </h1>
-            <span>dfsdfsdf<font>|</font>供应商</span>
-            <span>职位:公司创始人</span>
+            <span>555<font>|</font><%= user_data.company_type_name %></span>
+            <span>职位：<%= user_data.position %></span>
             <div class="button">
                 <a href="">+关注</a>
                 <a href="">发私信</a>
@@ -32,15 +33,27 @@
         <div class="me-content-introduction">
             <h2>任职公司简介</h2>
             <div class="center">
-                <img src="" alt="">
+                <img src="<%=IMAGES_PATH%><%= user_data.company_cover %>" alt="">
                 <div class="right">
-                    <div>名称:&nbsp;<span>阿里巴巴</span></div>
-                    <div>名称:&nbsp; <a href="">www.baidu.com</a></div>
-                    <div>名称:&nbsp; <span>采购商</span></div>
-                    <div>名称:&nbsp; <span>led</span></div>
+                    <div>名称：&nbsp;<span><%= user_data.company_name %></span></div>
+                    <% if(user_data.company_site) { %>
+                        <div>网址：&nbsp;<a href="<%= user_data.company_site %>"><%= user_data.company_site %></a></div>
+                    <% }else{ %>
+                        <div>网址：&nbsp;<a class="no-web" href="javascript:void(0);">暂无官网</a></div>
+                    <% } %>
+                    <div>性质：&nbsp;<span><%= user_data.company_type_name %></span></div>
+                    <div>采购：&nbsp;
+                        <div class="products">
+                            <span class="text" id="text"><%= products_format(user_data.products) %></span>
+                            <span data-pro="<%= user_data.products %>" class="more <%= user_data.products.length>5?'show':'display-none' %>" id="pro_more">[更多]</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p>u将会大幅爽肤水ui是单号发士大夫哈哈就是i加快脚步选举哦啊是的封建时代和佛教i记得发哈赶紧恢复鬼画符和i湖广会馆v上的覅就啊iOS号班次萨队阿文哈佛乖哈岁的和雅阁方式护士为辐i合法化的国家啊覅偶爱额外湖北i好的师傅i华为u发生的购房户和史蒂芬就开始大部分被毁的司法保护和粉红色的吧案卷哈吉喀什的报价发顺丰回湖北不服输的恢复健康哈哈哈风景的房间</p>
+            <p class="company-detail">
+                <%= user_data.company_introduction %>
+                <span id="company_detail_more" class="more display-none">[展开]</span>
+            </p>
         </div>
         <div class="me-content-post-list">
             <h2 class="me-content-post-list-options" id="active_recommend">
@@ -135,7 +148,24 @@
 <script src="<%= STATIC %>plugins/viewer/jquery-viewer.min.js?v=<%=VERSION%>"> </script>
 <script src="<%= STATIC %>js/default.js?v=<%=VERSION%>"> </script>
 <script>
-    $(".viewer").viewer({
+    $(function(){
+        (function(){
+            let text_width=$("#text").innerWidth()
+            if(text_width>=280){
+                $('#pro_more').addClass("show").removeClass("display-none")
+            }
+        })();
+        
+        (function () {
+            let hs = Math.round(parseFloat($('.me-content-introduction .company-detail').css('height')) / parseFloat($('.me-content-introduction .company-detail').css('line-height')))
+            console.log(hs,"77777")
+            if (hs >= 4) {
+                $('.me-content-introduction .company-detail').addClass("collapse")
+                $('.me-content-introduction .company-detail .more').addClass('show more-active')
+            }
+        })();
+        
+        $(".viewer").viewer({
             url:'data-original',
             // 缩略图
             navbar: true,
@@ -143,6 +173,33 @@
             button:false,
             toolbar:true,
         })
+
+        // 点击展开更多
+        $("#company_detail_more").click(function(){
+            if($(this).hasClass('show')){
+                $('.me-content-introduction .company-detail').removeClass("collapse")
+                $('.me-content-introduction .company-detail .more').removeClass("show more-active display-none")
+                $(this).text('[收起]')
+            }else{
+                $('.me-content-introduction .company-detail').addClass("collapse")
+                $('.me-content-introduction .company-detail .more').addClass("show more-active")
+                $(this).text('[展开]')
+            }
+        })
+
+        $("#pro_more").click(function(){
+        layer.open({
+                type: 1,
+                skin: 'layui-layer-toast', //样式类名
+                closeBtn: 1, //不显示关闭按钮
+                title:"采购信息",
+                anim: 2,
+                scrollbar: false,
+                shadeClose: true, //开启遮罩关闭
+                content: $(this).data("pro")
+            });
+    })
+    })
 </script>
 </body>
 </html>

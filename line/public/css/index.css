@@ -389,9 +389,10 @@ h1>span{
     padding-bottom: 20px;
 }
 .me-index-content>.me-content-head>.back{
-    background-color: #BEBEBE;
     width: 100%;
     height: 224px;
+    background-size: 650px 224px;
+    background-repeat: no-repeat;
 }
 .me-content-head>.back>span{
     display: inline-block;
@@ -407,7 +408,6 @@ h1>span{
 
     display: inline-block;
     width: 115px;
-    height: 115px;
     border-radius: 50%;
     background-color: #c7c7c7;
 }
@@ -462,17 +462,45 @@ h1>span{
 }
 .me-content-introduction>.center>img{
     width: 192px;
-    height: 128px;
+    border-radius: 10px;
 }
 .me-content-introduction>.center>.right{
     width: 380px;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 .center>.right>div{
     font-size: 14px;
     padding: 7px 0;
     border-bottom: 1px solid #ccc;
+
+    max-width: 380px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis ;
 }
+.right>div>.products{
+    display: inline-block;
+}
+.products>.text{
+    display: inline-block;
+    vertical-align: bottom;
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.products>.more{
+    display: inline-block;
+    padding: 0 0;
+    color: #58A2E8;
+}
+.products .show{
+    display: inline-block;
+}
+.products .display-none{
+    display: none;
+}
+
 .center>.right>:last-child{
     border-bottom: 0;
 }
@@ -480,10 +508,58 @@ h1>span{
     text-decoration: none;
     color: #58A2E8;
 }
-.me-content-introduction>p{
-    padding: 0 15px;
+.center>.right>div>.no-web{
+    color: #101010;
 }
+.me-content-introduction>.company-detail{
+    padding: 0 15px;
+    box-sizing:content-box;
+    font-size: 14px;
+    line-height: 20px;
 
+    position: relative;
+}
+.me-content-introduction>.collapse{
+    /* 在恰当的断字点进行换行 */
+    word-break: break-all;
+    /* 超出范围隐藏 */
+    overflow: hidden;
+    /* 盒子模型 */
+    display: -webkit-box;
+    /* 显示的文本行数 */
+    -webkit-line-clamp: 4;
+    /* 子元素的垂直排列方式 */
+    -webkit-box-orient: vertical;
+
+    position: relative;
+}
+.me-content-introduction>.collapse::after{
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 60px;
+    padding-left: 4px;
+    background: linear-gradient(to right, transparent, #fff 0%);
+}
+.company-detail>.more{
+    color:#58A2E8 ;
+    padding: 0;
+    display: inline-block;
+}
+.company-detail>.more-active{
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    z-index: 9;
+    cursor: pointer;
+}
+.company-detail>.display-none{
+    display: none;
+}
+.company-detail>.show{
+    display: inline-block;
+}
 .me-index-content .me-content-post-list{
     width: 650px;
     margin-top: 30px;

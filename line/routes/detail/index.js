@@ -9,38 +9,56 @@ router.user_xq = function (req, res) {
 
     let results={
         nav : 'members',
-        title:'同行推荐',
-        search_key:req.params.user_id || "",
+        line_right_center_title:'同行推荐',
         children:'members-detail'
     }
 
     async.series([//串行且无关 顺序执行
         function (cb) {
             // 当前用户数据
-            tools.getMasterApiQuery(`/line/info/${user_id}`, req, res,
+            tools.getMasterApiQuery(`/line/info/${user_id}`,{}, req, res,
                 function (result) {
-                    console.log(result,"用户详情数据")
                     let data = result.state == 0 ? result.data || {} : {}
-                    results.users_active_list = data.list || []
+                    results.users_data = data || {}
                     cb(null, 1)
                 }
             )
         },
-        // function (cb) {
-            // // right-top、同行推荐
-            // tools.getMasterApiQuery('/line/users', {
-            //         start: 0,
-            //         sort: 2,
-            //         size: 10,
-            //         is_home:1
-            //     }, req, res,
-            //     function (result) {
-            //         let data = result.state == 0 ? result.data || {} : {}
-            //         results.users_active_list = data.list || []
-            //         cb(null, 1)
-            //     }
-            // )
-        // },
+        function (cb) {
+            // 同行推荐
+            tools.getMasterApiQuery(`/line/personal/users/recommend/${user_id}`, {
+                top_count: 3
+              },
+              req, res,
+              function (result) {
+                results.users_recommend_list = result.data.list
+                cb(null, 1)
+              }
+            )
+        },
+        function (cb) {
+            let search_key={
+                keyword:"",
+                sort:2,
+                start:0,
+                size:10,
+                has_reply:1,
+                type_id:3,
+                is_gq:1,
+                has_follow:0,
+                is_manage:0,
+                user_id:user_id,
+                exclude_id:0,
+            }
+            // 获取活跃帖子
+            tools.getMasterApiQuery(`/line/topic/list`, search_key,
+              req, res,
+              function (result) {
+                results.users_active_list = result.data.list
+                cb(null, 1)
+              }
+            )
+        },
     ], function (err, _) {
         return res.wrender('./pages/detail.ejs', {
             results: results

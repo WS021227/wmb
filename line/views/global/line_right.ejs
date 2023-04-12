@@ -1,5 +1,6 @@
 <% let data_list= results.users_recommend_list || [] %>
 <% let line_right_center_title=results.line_right_center_title %>
+<% console.log(results,"数据") %>
 <div class="line-right">
     <!-- 粘性定位用 只能用在子级--> 
     <div class="right-box">
@@ -16,8 +17,8 @@
                     <% if(results.nav=='members'){ %>
                         <img class="members-img" src="<%=IMAGES_PATH%><%= picture_format(item.avatar) %>" alt="">
                         <div class="members-right">
-                            <span class="name"><%= item.name %>(<%= item.country %>)</span>
-                            <span class="members-bottom"><%= item.verb %><%= item.position %></span>
+                            <span class="name"><%= item.name %></span>
+                            <span class="members-bottom"><%= item.company_type_name %>&nbsp;<%= item.position %></span>
                         </div>
                     <!-- 首页 -->
                     <% } else { %>
