@@ -33,7 +33,7 @@ router.members = function (req, res) {
     },
     function (cb) {
         search_key.sort=3
-        search_key.size=3
+        search_key.size=5
         /* 最新开通 */
         tools.getMasterApiQuery('/line/users', search_key, req, res,
             function (result) {

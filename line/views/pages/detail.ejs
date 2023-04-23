@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <%- include('../global/head.ejs') %>
     <title><%=translate('home_website_title')%></title>
-    <link rel="stylesheet" href="<%= STATIC %>css/index.css?v=<%=VERSION%>">
+    <link rel="stylesheet" href="<%= STATIC %>css/user.css?v=<%=VERSION%>">
     <link rel="stylesheet" href="<%= STATIC %>plugins/viewer/viewer.css?v=<%=VERSION%>">
 </head>
-
 <body>
-<% let user_data=results.users_data %>
-<% console.log(user_data,"当前用户数据") %>
+<% let user_data=results.users_data || {},active_data=results.users_active_list || [],total=results.total %>
+<% console.log(active_data,"最新帖子") %>
 <%- include('../global/navbar.ejs') %>
 <div class="line-index-container" data-img="<%=IMAGES_PATH%>">
     <%- include('../global/left_tab.ejs') %>
     <div class="line-index-content me-index-content">
         <div class="me-content-head">
             <div class="back" style="background-image: url('<%=IMAGES_PATH%><%= user_data.cover %>');">
-                <span>编辑主页</span>
+                <span><a href="#">编辑主页</a></span>
             </div>
             <img src="<%=IMAGES_PATH%><%= user_data.avatar %>" alt="">
-            <h1>
-                <span><%= user_data.name %>(<%= user_data.country %>)</span>
-            </h1>
-            <span>555<font>|</font><%= user_data.company_type_name %></span>
+            <h1><span><%= user_data.name %><font>(<%= user_data.country %>)</font></span></h1>
+            <span class="company">上海义缘网络科技有限公司<font>|</font><%= user_data.company_type_name %></span>
             <span>职位：<%= user_data.position %></span>
             <div class="button">
                 <a href="">+关注</a>
@@ -31,175 +27,118 @@
             </div>
         </div>
         <div class="me-content-introduction">
-            <h2>任职公司简介</h2>
+            <h2>任职公司</h2>
             <div class="center">
                 <img src="<%=IMAGES_PATH%><%= user_data.company_cover %>" alt="">
                 <div class="right">
-                    <div>名称：&nbsp;<span><%= user_data.company_name %></span></div>
+                    <div>公司：&nbsp;<span><%= user_data.company_name %></span></div>
                     <% if(user_data.company_site) { %>
-                        <div>网址：&nbsp;<a href="<%= user_data.company_site %>"><%= user_data.company_site %></a></div>
+                        <div>官网：&nbsp;<a href="<%= user_data.company_site %>" target="_blank"><%= user_data.company_site %></a></div>
                     <% }else{ %>
-                        <div>网址：&nbsp;<a class="no-web" href="javascript:void(0);">暂无官网</a></div>
+                        <div>官网：&nbsp;<a class="no-web" href="javascript:void(0);">暂无官网</a></div>
                     <% } %>
-                    <div>性质：&nbsp;<span><%= user_data.company_type_name %></span></div>
-                    <div>采购：&nbsp;
-                        <div class="products">
+                    <div>属性：&nbsp;<span><%= user_data.company_type_name %></span></div>
+                    <!-- <div>采购：&nbsp; -->
+                        <!-- <div class="products">
                             <span class="text" id="text"><%= products_format(user_data.products) %></span>
                             <span data-pro="<%= user_data.products %>" class="more <%= user_data.products.length>5?'show':'display-none' %>" id="pro_more">[更多]</span>
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
                 </div>
             </div>
             <p class="company-detail">
-                <%= user_data.company_introduction %>
+                <font>【采供】</font><%= products_format(user_data.products) %><br/>
+                <font>【简介】</font><%= user_data.company_introduction %>
                 <span id="company_detail_more" class="more display-none">[展开]</span>
             </p>
         </div>
         <div class="me-content-post-list">
             <h2 class="me-content-post-list-options" id="active_recommend">
-                <div>
-                    <span class="active" data-id=2>活跃</span>
-                    <span data-id=1>推荐</span>
+                <div id="new_or_hot" data-uid="<%= user_data.user_id %>">
+                    <span class="active" data-id=2>最新</span>
+                    <span data-id=1>热门</span>
                 </div>
-                <span class="num">共计9条</span>
+                <span class="num" id="num">共计<%= total %>条</span>
             </h2>
-            <!-- 渲染 前一部分源码级别-->
-            <div class="me-content-list-box">
-                <h3>
-                    <img src="" alt="">
+            <div id="box_list">
+                <% if(active_data.length!=0){ %>
+                    <% active_data.forEach(function(item,index){ %>
+                    <div class="me-content-list-box">
+                        <h3>
+                            <img src="<%= IMAGES_PATH %><%= item.avatar %>">
+                            <div><span class="user-name" id="user_name"><%= item.name %></span>发布于<span><%= item.create_time.substr(0,10) %></span></div>
+                            <a href="">咨询</a>
+                        </h3>
+                        <p>【<span id="cg_flag">供应</span>】<%= item.contents %></p>
+                        
+                        <!-- 图片展示 最多直接显示出三张图片 多出来的图片在第三张图片上显示出剩余数量-->
+                        <div class="viewer" id="viewer">
+                            <% let pic_num=picture_num(item.images) %>
+                            <% let pic_list=picture_array(item.images) %>
+    
+                            <% pic_list.forEach(function(item,index){ %>
+                                <% if(pic_num==1){ %>
+                                    <img class="img1" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                <% }else if(pic_num==2){ %>
+                                    <img class="img2" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                <%}else if(pic_num==3){%>
+                                    <img class="img3" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                <%}else{%>
+                                    <img class="img3" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                    <div class="sy-num"><span><%= pic_num-3 %></span></div>
+                                <%}%>
+                            <% }) %>
+                        </div>
+        
+                        <% console.log(item.reply_count,"回复次数") %>
+                        <div class="buttom">
+                            <div class="left">此条信息<span><%= item.ad_count %></span>次展示，<span><%= item.view_count %></span>次查阅
+                            </div>
+                            <% if(item.reply_count>0){ %>
+                                <div class="right"> 
+                                    <span>回复<%= item.reply_count %></span>
+                                    <span>编辑</span>
+                                </div>
+                            <% } %>
+                        </div>
+        
+                        <% if(item.reply_count>0){ %>
+                            <div class="reply">
+                                <div class="reply-text">
+                                    <input type="search" placeholder="请输入您回复的内容">
+                                    <a href="">回复</a>
+                                </div>
+                                <div class="reply-texts">
+                                    <p><span>张三：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                                    <p><span>李四：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                                    <p><span>王五：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                                    <p><span>我：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                             </div>
+                                <span>更多回复</span>
+                            </div>
+                        <% } %>
+                    </div>
+                    <% }) %>
+                <% } %>
+            </div>
+            <% if(total>10) {%>
+                <span class="more" id="more">加载更多<i></i></span>
+            <% } %>
+           <% if(active_data.length==0){ %>
+                <div class="no-data">
                     <div>
-                        <span class="user-name" id="user_name">kube</span>发布于<span>2023-12-12</span>
-                    </div>
-                    <a href="">咨询</a>
-                </h3>
-                <p>【<span id="cg_flag">供应</span>】dasfadfaafafafdflhsafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGJafafafdflhsjkfnjksadfjkasdfjlasdfjkasdfjkdashfasdfgadsgfjkasdfjkashdfuhauehfasdfjashfjkdasfjadjkasdjgfbajwioeuoqiwrqowprioefjksdvzbxcvbduiahuhfgsdgbIOEHJSJBSJGBSJBGGJBSJH</p>
-                
-                <!-- 图片展示 最多直接显示出三张图片 多出来的图片在第三张图片上显示出剩余数量-->
-                <div class="viewer" id="viewer">
-                    <% let pic_num=6 %>
-                    <% if(pic_num==1){ %>
-                        <img class="img1" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                    <% }else if(pic_num==2){ %>
-                        <img class="img2" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img2" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                    <%}else if(pic_num==3){%>
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                    <%}else{%>
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <img class="img3" data-original="<%= STATIC %>images/ling_banner_ico.png" src="<%= STATIC %>images/ling_banner_ico.png" alt="">
-                        <div class="sy-num"><span>+3</span></div>
-                    <%}%>
-                </div>
-
-                <div class="buttom">
-                    <div class="left">
-                        此条信息<span>963</span>次展示，<span>6</span>次查阅
-                    </div>
-                    <div class="right">
-                        <span>
-                            <svg t="1680512311166" class="icon icon1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2757" width="200" height="200"><path d="M512 138.5c3.1 0 4 2 4.5 2.9l91 194.8c12.5 26.7 37.3 45.3 66.4 49.8l207.3 31.8c0.9 0.1 3 0.5 4 3.4 1 3.1-0.6 4.8-1.2 5.4L731.1 584c-19.4 19.9-28.3 48.2-23.8 75.7L743 879.3c0.3 1.8 0 3-1 4.1-1 1.2-2.6 2-3.9 2-0.3 0-1 0-2.3-0.7L554.6 784.3c-13-7.2-27.8-11-42.6-11-14.9 0-29.6 3.8-42.6 11L288.3 884.8c-1.2 0.6-1.9 0.7-2.3 0.7-1.3 0-2.9-0.8-3.9-2s-1.3-2.4-1-4.1l35.7-219.7c4.5-27.5-4.4-55.8-23.8-75.7L140 426.6c-0.6-0.6-2.2-2.3-1.2-5.4 1-3 3.1-3.3 4-3.4L350.1 386c29.1-4.5 53.9-23.1 66.4-49.8l91-194.8c0.5-0.9 1.4-2.9 4.5-2.9m0-41.5c-16.9 0-33.7 9-42.1 26.9l-91 194.8c-6.6 14.1-19.7 24-35.1 26.3l-207.3 31.8c-37.4 5.7-52.7 51.6-26.3 78.8L263.1 613c10.3 10.6 15 25.5 12.6 40.1L240 872.8c-4.9 30.1 19 54.3 45.9 54.3 7.4 0 15.1-1.8 22.5-5.9l181.1-100.5c7-3.9 14.7-5.8 22.5-5.8 7.7 0 15.5 1.9 22.5 5.8l181.1 100.5c7.4 4.1 15 5.9 22.5 5.9 26.9 0 50.8-24.2 45.9-54.3L748.2 653c-2.4-14.6 2.3-29.5 12.6-40.1l152.9-157.4c26.4-27.2 11.2-73-26.3-78.8l-207.3-31.8c-15.3-2.4-28.5-12.2-35.1-26.3l-91-194.8C545.7 106 528.9 97 512 97z" p-id="2758" fill="#cccccc"></path></svg>
-                            收藏15
-                        </span>
-                        <span>
-                            <svg t="1680512389704" class="icon icon2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2764" width="200" height="200"><path d="M191.825 155.411h639.133c31.777 0 60.641 12.979 81.549 33.885 20.908 20.908 33.886 49.78 33.886 81.547v386.981c0 31.773-12.978 60.642-33.886 81.55s-49.771 33.881-81.549 33.881H617.095c-51.358 65.264-86.005 97.265-115.505 96.842-34.341-0.48-51.522-33.026-64.004-96.842h-245.76c-31.77 0-60.641-12.973-81.547-33.881-20.908-20.908-33.885-49.776-33.885-81.55v-386.98c0-31.767 12.977-60.639 33.885-81.547 20.905-20.907 49.776-33.886 81.546-33.886zM321.3 397.295h4.778c26.955 0 48.999 22.043 48.999 48.999v0.006c0 26.955-22.043 49.005-48.999 49.005H321.3c-26.955 0-48.999-22.05-48.999-49.005v-0.006c0-26.955 22.044-48.999 48.999-48.999z m370.743 0h4.777c26.956 0 48.999 22.043 48.999 48.999v0.006c0 26.955-22.043 49.005-48.999 49.005h-4.777c-26.955 0-48.998-22.05-48.998-49.005v-0.006c0-26.955 22.043-48.999 48.998-48.999z m-188.393 0h4.779c26.953 0 48.997 22.043 48.997 48.999v0.006c0 26.955-22.044 49.005-48.997 49.005h-4.779c-26.953 0-48.999-22.05-48.999-49.005v-0.006c0-26.955 22.046-48.999 48.999-48.999z m327.308-190.478H191.825c-17.576 0-33.59 7.215-45.2 18.827-11.614 11.612-18.827 27.626-18.827 45.2v386.981c0 17.58 7.213 33.589 18.827 45.202 11.61 11.614 27.625 18.825 45.2 18.825H480.773l3.555 21.583c8.232 49.979 13.602 75.405 17.866 75.462 11.309 0.163 36.949-28.559 82.164-87.002l7.764-10.043h238.836c17.583 0 33.592-7.211 45.202-18.825 11.613-11.613 18.828-27.622 18.828-45.202V270.844c0-17.574-7.215-33.588-18.828-45.2-11.61-11.612-27.619-18.827-45.202-18.827z" fill="#cccccc" p-id="2765"></path></svg>
-                            回复25
-                        </span>
-                        <span>
-                            收藏15
-                            <svg t="1680512449385" class="icon icon3" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2722" width="200" height="200"><path d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z" p-id="2723" fill="#cccccc"></path></svg>
-                        </span>
+                        <i></i>
+                        <span>暂无更多帖子信息</span>
                     </div>
                 </div>
-
-                <div class="reply">
-                    <div class="reply-text">
-                        <input type="search" placeholder="请输入您回复的内容">
-                        <a href="">回复</a>
-                    </div>
-                    <div class="reply-texts">
-                        <p><span>张三</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
-                        <p><span>李四</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
-                        <p><span>王五</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
-                        <p><span>我</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
-                    </div>
-                    <span>更多回复</span>
-                </div>
-            </div>
-
-            <div class="no-data">
-                <div>
-                    <svg t="1680513896107" class="icon" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2756" width="200" height="200"><path d="M302.3 292.032c-23.398 0-42.365 18.964-42.365 42.361s18.967 42.365 42.365 42.365 42.365-18.967 42.365-42.365-18.966-42.361-42.365-42.361zM302.3 630.933c-23.398 0-42.365 18.967-42.365 42.363 0 23.397 18.967 42.363 42.365 42.363s42.365-18.966 42.365-42.363c0-23.395-18.966-42.363-42.365-42.363zM302.3 461.482c-23.398 0-42.365 18.966-42.365 42.363s18.967 42.363 42.365 42.363 42.365-18.966 42.365-42.363-18.966-42.363-42.365-42.363zM725.948 630.933h-254.188c-23.398 0-42.365 18.967-42.365 42.363 0 23.397 18.967 42.363 42.365 42.363h254.188c23.398 0 42.365-18.966 42.365-42.363 0-23.395-18.967-42.363-42.365-42.363zM725.948 292.032h-254.188c-23.398 0-42.365 18.964-42.365 42.361s18.967 42.365 42.365 42.365h254.188c23.398 0 42.365-18.967 42.365-42.365s-18.967-42.361-42.365-42.361zM853.043 37.853h-677.837c-46.794 0-84.729 37.934-84.729 84.725v762.532c0 46.791 37.935 84.725 84.729 84.725h677.837c46.794 0 84.727-37.934 84.727-84.725v-762.532c0-46.791-37.933-84.725-84.727-84.725zM853.043 842.747c0 23.397-18.97 42.363-42.367 42.363h-593.105c-23.398 0-42.365-18.966-42.365-42.363v-677.806c0-23.395 18.967-42.363 42.365-42.363h593.105c23.398 0 42.367 18.969 42.367 42.363v677.806zM725.948 461.482h-254.188c-23.398 0-42.365 18.966-42.365 42.363s18.967 42.363 42.365 42.363h254.188c23.398 0 42.365-18.966 42.365-42.363s-18.967-42.363-42.365-42.363z" p-id="2757" fill="#000000"></path></svg>
-                    <span>他尚未发布供求等相关信息</span>
-                </div>
-            </div>
+            <% } %>
         </div>
-        <span class="more" id="more">点击加载更多...</span>
     </div>
     <%- include('../global/line_right.ejs') %>
 </div>
 <%- include('../global/foot.ejs') %>
 <script src="https://unpkg.com/viewerjs@1.6.1/dist/viewer.js"> </script>
 <script src="<%= STATIC %>plugins/viewer/jquery-viewer.min.js?v=<%=VERSION%>"> </script>
-<script src="<%= STATIC %>js/default.js?v=<%=VERSION%>"> </script>
-<script>
-    $(function(){
-        (function(){
-            let text_width=$("#text").innerWidth()
-            if(text_width>=280){
-                $('#pro_more').addClass("show").removeClass("display-none")
-            }
-        })();
-        
-        (function () {
-            let hs = Math.round(parseFloat($('.me-content-introduction .company-detail').css('height')) / parseFloat($('.me-content-introduction .company-detail').css('line-height')))
-            console.log(hs,"77777")
-            if (hs >= 4) {
-                $('.me-content-introduction .company-detail').addClass("collapse")
-                $('.me-content-introduction .company-detail .more').addClass('show more-active')
-            }
-        })();
-        
-        $(".viewer").viewer({
-            url:'data-original',
-            // 缩略图
-            navbar: true,
-            movable:false,
-            button:false,
-            toolbar:true,
-        })
-
-        // 点击展开更多
-        $("#company_detail_more").click(function(){
-            if($(this).hasClass('show')){
-                $('.me-content-introduction .company-detail').removeClass("collapse")
-                $('.me-content-introduction .company-detail .more').removeClass("show more-active display-none")
-                $(this).text('[收起]')
-            }else{
-                $('.me-content-introduction .company-detail').addClass("collapse")
-                $('.me-content-introduction .company-detail .more').addClass("show more-active")
-                $(this).text('[展开]')
-            }
-        })
-
-        $("#pro_more").click(function(){
-        layer.open({
-                type: 1,
-                skin: 'layui-layer-toast', //样式类名
-                closeBtn: 1, //不显示关闭按钮
-                title:"采购信息",
-                anim: 2,
-                scrollbar: false,
-                shadeClose: true, //开启遮罩关闭
-                content: $(this).data("pro")
-            });
-    })
-    })
-</script>
+<script src="<%=STATIC%>js/members/detail/index.js?v=<%=VERSION%>"> </script>
 </body>
 </html>

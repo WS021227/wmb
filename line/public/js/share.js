@@ -315,6 +315,16 @@ function gq_date_format(date){
   let day=today-new_date
   return new Date(day).getDay()
 }
+
+function picture_array(pic_url){
+  let list=pic_url.split(",")
+  return list
+}
+
+
+
+
+
 /**
  * 统一翻译方法
  * @param key

@@ -43,6 +43,18 @@ app.use(cookieParser());
 // 加载翻译数据
 translator.init()
 
+// 自定义一个next 曾经的意向用户验证
+app.use((req, res, next) => {
+    try {
+        // util.prize_research(req, res, function (state){
+        //     res.locals.wglobals.prize_research = state
+        //     next()
+        // })
+        next()
+    } catch (e) {
+        next();
+    }
+});
 
 // 当不是登录页面及登录操作时,进行所有的拦截重定向到登录页面
 app.use((req, res, next) => {
@@ -67,7 +79,6 @@ app.use((req, res, next) => {
 
 // 加载路由管理模块
 app.use('/', require('./routes/admin.js'));
-app.use('/en', require('./routes/admin.js'));
 
 // 获取版本号
 try {
@@ -188,4 +199,6 @@ app.locals['gq_title_format'] = util.gq_title_format
 app.locals['gq_date_format'] = util.gq_date_format
 app.locals['picture_num'] = util.picture_num
 app.locals['products_format'] = util.products_format
+app.locals['picture_array'] = util.picture_array
+
 module.exports = app;

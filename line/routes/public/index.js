@@ -4,7 +4,6 @@ const tools = require('../../common/util.js')
 const router = express.Router();
 
 router.follow = function (req, res) {
-
     let uid = res.locals.wglobals.user.uid,
     user_id = res.locals.wglobals.user.user_id,
     curr_user_id = req.params.id
@@ -28,10 +27,8 @@ router.follow = function (req, res) {
 // 默认数据
 router.get_active_recommend = function (req, res) {
   let search = req.query
-  console.log(search,"969999696969696")
   tools.getMasterApiQuery('/line/users', search, req, res,
     function (result) {
-      console.log(result,"发现人加载更多数据")
       res.send(result)
     }
   )

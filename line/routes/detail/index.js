@@ -27,7 +27,7 @@ router.user_xq = function (req, res) {
         function (cb) {
             // 同行推荐
             tools.getMasterApiQuery(`/line/personal/users/recommend/${user_id}`, {
-                top_count: 3
+                top_count: 5
               },
               req, res,
               function (result) {
@@ -37,6 +37,7 @@ router.user_xq = function (req, res) {
             )
         },
         function (cb) {
+            // 获取最新帖子
             let search_key={
                 keyword:"",
                 sort:2,
@@ -50,11 +51,12 @@ router.user_xq = function (req, res) {
                 user_id:user_id,
                 exclude_id:0,
             }
-            // 获取活跃帖子
             tools.getMasterApiQuery(`/line/topic/list`, search_key,
               req, res,
               function (result) {
+                console.log(result,"最新帖子")
                 results.users_active_list = result.data.list
+                results.total = result.data.total
                 cb(null, 1)
               }
             )
@@ -64,6 +66,32 @@ router.user_xq = function (req, res) {
             results: results
         });
     })
+}
+
+router.get_new_or_hot=function(req,res){
+    let search_key={
+        keyword:"",
+        sort:2,
+        start:0,
+        size:10,
+        has_reply:1,
+        type_id:3,
+        is_gq:1,
+        has_follow:0,
+        is_manage:0,
+        user_id:0,
+        exclude_id:0,
+    }
+    let id=req.query.id,user_id=req.query.uid
+    search_key.sort=parseInt(id)
+    search_key.user_id=parseInt(user_id)
+    tools.getMasterApiQuery(`/line/topic/list`, search_key,
+              req, res,
+              function (result) {
+                console.log(result.data.list,"shuju")
+                res.send(result)
+        }
+    )
 }
 
 module.exports = router;

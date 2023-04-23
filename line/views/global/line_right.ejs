@@ -1,15 +1,11 @@
 <% let data_list= results.users_recommend_list || [] %>
 <% let line_right_center_title=results.line_right_center_title %>
-<% console.log(results,"数据") %>
 <div class="line-right">
     <!-- 粘性定位用 只能用在子级--> 
     <div class="right-box">
     <%- include('../global/line_index_top.ejs') %>
-
     <div class="line-index-right <%= results.nav=='members'?'me-index-right':'' %>">
-        <h2>
-           <%= line_right_center_title %>
-        </h2>
+        <h2><%= line_right_center_title %></h2>
         <ul>
             <% data_list.forEach(function(item,index){ %>
                 <li>

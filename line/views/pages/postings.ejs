@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <%- include('../global/head.ejs') %>
     <title><%=translate('bline_trader_title')%>-<%=translate('share_site_name')%></title>
-    <link rel="stylesheet" href="<%= STATIC %>css/index.css?v=<%=VERSION%>">
+    <link rel="stylesheet" href="<%= STATIC %>css/post.css?v=<%=VERSION%>">
 </head>
 
 <body>
-<% console.log(results,'供求数据') %>
 <% let user_list=results.users_list || [],total=results.total,search_key=results.search_key || "" %>
 <%- include('../global/navbar.ejs') %>
 <div class="line-index-container" data-img="<%=IMAGES_PATH%>">
@@ -29,11 +27,11 @@
         <div class="user-content">
             <div class="h2">
                 <div class="cgsx">
-                    <span>采供属性</span>
+                    <span><b>采供属性</b></span>
                     <span class="active">全部</span>
-                    <span>采购商</span>
-                    <span>供应商</span>
-                    <span>采供商</span>
+                    <span>采购帖</span>
+                    <span>供应帖</span>
+                    <span>采供帖</span>
                 </div>
             </div>
             <!-- 搜索的用户列表 -->
@@ -61,10 +59,10 @@
                 <% }) %>
             </div>
         </div>
-        <span class="more" id="postings_more">点击加载更多...</span>
+        <span class="more" id="postings_more">加载更多<i></i></span>
     </div>
 </div>
 <%- include('../global/foot.ejs') %>
-<script src="<%=STATIC%>js/default.js"></script>
+<script src="<%=STATIC%>js/postings/index.js?v=<%=VERSION%>"></script>
 </body>
 </html>

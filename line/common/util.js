@@ -839,7 +839,7 @@ module.exports = {
         await this.sleep(ms);
     },
 
-    // 图片格式处理
+    // 图片格式处理(取第一张图片)
     picture_format(pic_url){
         let index=pic_url.indexOf(',')
         if(index==-1) return pic_url
@@ -847,8 +847,12 @@ module.exports = {
         return pic
     },
     picture_num(pic_url){
-        let num=pic_url.split(",").length - 1
+        let num=pic_url.split(",").length
         return num
+    },
+    picture_array(pic_url){
+        let list=pic_url.split(",")
+        return list
     },
     // 文本格式处理
     gq_title_format(title,str_num){

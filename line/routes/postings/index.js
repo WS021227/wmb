@@ -11,6 +11,7 @@ router.postings = function (req, res) {
     let search_key={
         start:0,
         size:20,
+        is_gq : 1
     }
     async.series([//串行且无关 顺序执行
         function (cb) {
@@ -44,7 +45,7 @@ router.postings_search = function (req, res) {
                     start: 0,
                     sort: 2,
                     size: 10,
-                    is_home:1
+                    is_home:0,
                 }, req, res,
                 function (result) {
                     let data = result.state == 0 ? result.data || {} : {}
@@ -69,6 +70,7 @@ router.get_postings_list=function (req, res) {
         console.log(result,"69696996969")
         let data = result.state == 0 ? result.data || {} : {}
         results.users_list = data.list || []
+        results.static_url=result.static_url
         res.send(results)
     })
 }

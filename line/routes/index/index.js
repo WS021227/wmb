@@ -22,9 +22,9 @@ router.index = function (req, res) {
             /*活跃用户*/
             tools.getMasterApiQuery('/line/users', key, req, res,
                 function (result) {
-                    console.log(result,"首页活跃用户999")
                     let data = result.state == 0 ? result.data || {} : {}
                     results.users_active_list = data.list || []
+                    results.img_url=result.static_url
                     cb(null, 1)
                 }
             )
@@ -32,10 +32,9 @@ router.index = function (req, res) {
         function (cb) {
             /*供求信息*/
             tools.getMasterApiQuery('/line/topic/home/recommend', {
-                top_count:3
+                top_count:5
                 }, req, res,
                 function (result) {
-                    console.log(result,"首页推荐供求数据")
                     let data = result.state == 0 ? result.data || {} : {}
                     results.users_recommend_list = data.list || []
                     cb(null, 1)
