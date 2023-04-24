@@ -401,26 +401,33 @@
 /* 图片展示 */
 .me-content-list-box>.viewer{
     width: 100%;
-    padding: 10px 5px;
     display: flex;
-    flex: 4;
-    flex-wrap: nowrap;
-
-    position: relative;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    align-items: center;
 }
-
-.viewer>img{
-    min-width: 191px !important;
+.viewer>.pic{
+    min-width: 190px !important;
     max-width: 300px !important;
     height: auto;
     border:1px #eee solid;
-    margin-right: 20px;
 }
-.viewer>.sy-num{
+.viewer>.num2{
+    position: relative;
+    margin-top: 10px;
+}
+.viewer>.display-none{
+    display: none;
+}
+.viewer img{
+   width: 100%;
+}
+.viewer .sy-num{
     position: absolute;
     top: 50%;
-    left: 84.5%;
-    transform: translate(-50%,0%);
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%,-50%);
     background-color: #101010;
     color: #ffffff;
     font-size: 14.4px;

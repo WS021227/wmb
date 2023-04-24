@@ -74,14 +74,13 @@
                         <div class="viewer" id="viewer">
                             <% let pic_num=picture_num(item.images) %>
                             <% let pic_list=picture_array(item.images) %>
-                            <% console.log(pic_list,"数组") %>
                             <% pic_list.forEach(function(item,index){ %>
-                                <% if(pic_num<=3) {%>
+                                <div class="pic <%= index==2?'num2':"" %><%= index>2?'display-none':'' %>">
                                     <img data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
-                                <%}else{%>
-                                    <img data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
-                                    <div class="sy-num"><span><%= pic_num-3 %></span></div>
-                                <%}%>
+                                    <%if(index==2 && pic_num>3){%>
+                                        <div class="sy-num"><span><%= pic_num-3 %></span></div>
+                                    <%}%>
+                                </div>
                             <% }) %>
                         </div>
         
