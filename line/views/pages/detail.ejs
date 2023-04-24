@@ -71,20 +71,15 @@
                         </h3>
                         <p>【<span id="cg_flag">供应</span>】<%= item.contents %></p>
                         
-                        <!-- 图片展示 最多直接显示出三张图片 多出来的图片在第三张图片上显示出剩余数量-->
                         <div class="viewer" id="viewer">
                             <% let pic_num=picture_num(item.images) %>
                             <% let pic_list=picture_array(item.images) %>
-    
+                            <% console.log(pic_list,"数组") %>
                             <% pic_list.forEach(function(item,index){ %>
-                                <% if(pic_num==1){ %>
-                                    <img class="img1" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
-                                <% }else if(pic_num==2){ %>
-                                    <img class="img2" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
-                                <%}else if(pic_num==3){%>
-                                    <img class="img3" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                <% if(pic_num<=3) {%>
+                                    <img data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
                                 <%}else{%>
-                                    <img class="img3" data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                    <img data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
                                     <div class="sy-num"><span><%= pic_num-3 %></span></div>
                                 <%}%>
                             <% }) %>

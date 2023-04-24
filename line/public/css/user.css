@@ -375,7 +375,8 @@
     text-decoration: none;
     padding:3px 10px;
     font-size:13.4px;
-    width:35px;text-align:center;
+    width:35px;
+    text-align:center;
 }
 .me-content-list-box>p{
     box-sizing:content-box;
@@ -402,27 +403,15 @@
     width: 100%;
     padding: 10px 5px;
     display: flex;
-    white-space: nowrap;
-    overflow: hidden;
+    flex: 4;
+    flex-wrap: nowrap;
 
     position: relative;
 }
-/* 当图片为一张时 居中显示 */
-.viewer>.img1{
-    width: 300px;
-    height: auto;
-    box-shadow: 0 0 4px #999;
-    margin-left: 50%;
-    transform: translateX(-50%);
-}
-.viewer>.img2{
-    width: 300px;
-    height: auto;
-    box-shadow: 0 0 4px #999;
-    margin-right: 15px;
-}
-.viewer>.img3{
-    width: 191px !important;
+
+.viewer>img{
+    min-width: 191px !important;
+    max-width: 300px !important;
     height: auto;
     border:1px #eee solid;
     margin-right: 20px;

@@ -852,7 +852,7 @@ module.exports = {
     },
     picture_array(pic_url){
         let list=pic_url.split(",")
-        return list
+        return list.slice(0,5)
     },
     // 文本格式处理
     gq_title_format(title,str_num){
