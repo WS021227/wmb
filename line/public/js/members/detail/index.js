@@ -18,14 +18,14 @@ $(function(){
         }
     })();
     
-    $(".viewer").viewer({
-        url:'data-original',
-        // 缩略图
-        navbar: true,
-        movable:false,
-        button:false,
-        toolbar:true,
-    })
+    // $(".viewer").viewer({
+    //     url:'data-original',
+    //     // 缩略图
+    //     navbar: true,
+    //     movable:false,
+    //     button:false,
+    //     toolbar:true,
+    // })
 
     // 点击展开更多
     $("#company_detail_more").click(function(){

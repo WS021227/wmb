@@ -4,6 +4,8 @@ body{
     background:#fafafa;
 }
 ::-webkit-input-placeholder{color:#ccc;font-weight:normal;font-size:14.4px;}
+.me-index-right ul li{border-bottom:1px #eee solid;padding-bottom:10px;margin-bottom:10px;}
+.me-index-right ul li:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none;}
 /* 公共顶部 */
 .line-header{
     width: 100%;
@@ -32,7 +34,7 @@ body{
     color: #333;
     border-radius: 26px;
     padding: 12px 18px;
-    background-color: #F0F8FF;
+    background-color: #fff;
     box-sizing: border-box;
     position: relative;
 }
@@ -110,7 +112,7 @@ body{
     margin-left: 12px;
     width: 465px;
     font-weight: 600;
-    background:#F0F8FF;
+    background:#fff;
 }
 
 /* 默认叉叉的样式修改 */
@@ -274,7 +276,7 @@ ul>a>span::before{content:"+";padding-right:3px;}
     padding: 12px 20px;
 }
 .line-index-right ul{
-    padding: 20px 20px;
+    padding:15px 20px;
     list-style: none;
 }
 .line-index-right>.gq-more{
@@ -304,8 +306,8 @@ ul li{
 }
 
 ul li img{
-    width: 70px;
-    height:70px;
+    width: 68px;
+    height:68px;
     object-fit: cover;
     border-radius:5px;
 }
@@ -315,15 +317,15 @@ ul li .members-img{
     height: 45px;
     border-radius: 50%;
 }
-ul li>div{width: 175px;font-size:12.4px;}
+ul li>div{width: 178px;font-size:12.4px;}
 ul li>.members-right{
     width: 200px;
 }
 ul li>div>p{
     font-weight: 600;
-    line-height:135%;
+    line-height:140%;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     display: -webkit-box;
     text-transform:capitalize;

@@ -53,7 +53,7 @@
 .user-content .user-content-box{
     width: 100%;
     background:#fff;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);
+    box-shadow: 0 0 6px 6px rgb(0 0 0 / 2%);
     padding-bottom: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
@@ -204,7 +204,7 @@ h1>span{
     background:#fff;
     border-radius:5px;
     font-size:14.4px;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);
+    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 2%);
 }
 .cgsx>span{ margin-right: 15px;}
 .cgsx>.active{color: #E07F42;font-weight:bold;}
@@ -251,9 +251,10 @@ h1>span{
     background:#fafafa;
     padding:15px;
     border-radius:5px;
+    height:60px;
 }
 .members-box-center>.left{
-    max-width: 480px;
+    max-width:500px;
     color: #777;
     font-size: 14px;
 }
@@ -265,22 +266,27 @@ h1>span{
 }
 .members-box-center>.left>a>p{
     color: #888;
-    height:57px;
-    font-size:12.4px;
-    line-height:150%;
+    height:40px;
+    font-size:12px;
+    line-height:160%;
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .members-box-center>.left>span{
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 12px;
-    color:#ccc;
+    color:#c0c0c0;
 }
 .members-box-center>a>img{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border:none;
     padding:0;
-    border-radius:0;
+    border-radius:3px;
 }
 .members-box-bottom{
     display: block;

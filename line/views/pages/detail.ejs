@@ -31,13 +31,13 @@
             <div class="center">
                 <img src="<%=IMAGES_PATH%><%= user_data.company_cover %>" alt="">
                 <div class="right">
-                    <div>公司：&nbsp;<span><%= user_data.company_name %></span></div>
+                    <div>公司：&nbsp;<span><%= user_data.company_name %></span></div>   
+                    <div>属性：&nbsp;<span><%= user_data.company_type_name %>公司</span></div>
                     <% if(user_data.company_site) { %>
                         <div>官网：&nbsp;<a href="<%= user_data.company_site %>" target="_blank"><%= user_data.company_site %></a></div>
                     <% }else{ %>
                         <div>官网：&nbsp;<a class="no-web" href="javascript:void(0);">暂无官网</a></div>
                     <% } %>
-                    <div>属性：&nbsp;<span><%= user_data.company_type_name %></span></div>
                     <!-- <div>采购：&nbsp; -->
                         <!-- <div class="products">
                             <span class="text" id="text"><%= products_format(user_data.products) %></span>
@@ -46,9 +46,9 @@
                     <!-- </div> -->
                 </div>
             </div>
-            <p class="company-detail">
-                <font>【采供】</font><%= products_format(user_data.products) %><br/>
-                <font>【简介】</font><%= user_data.company_introduction %>
+            <p class="company-mian"><font>采供：</font><%= products_format(user_data.products) %></p>
+            <p class="company-detail">                
+                <font>简介：</font><%= user_data.company_introduction %>
                 <span id="company_detail_more" class="more display-none">[展开]</span>
             </p>
         </div>
@@ -67,18 +67,17 @@
                         <h3>
                             <img src="<%= IMAGES_PATH %><%= item.avatar %>">
                             <div><span class="user-name" id="user_name"><%= item.name %></span>发布于<span><%= item.create_time.substr(0,10) %></span></div>
-                            <a href="">咨询</a>
+                            <a href="#">详情<font>&gt;</font></a>
                         </h3>
-                        <p>【<span id="cg_flag">供应</span>】<%= item.contents %></p>
-                        
+                        <p><span id="cg_flag">正在供应</span><%= item.contents %></p>                        
                         <div class="viewer" id="viewer">
                             <% let pic_num=picture_num(item.images) %>
                             <% let pic_list=picture_array(item.images) %>
                             <% pic_list.forEach(function(item,index){ %>
-                                <div class="pic <%= index==2?'num2':"" %><%= index>2?'display-none':'' %>">
-                                    <img data-original="<%= IMAGES_PATH %><%= item %>" src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                <div class="pic <%= pic_list.length==1?'num1': pic_list.length==2?'num2':'num3' %>">
+                                    <img src="<%= IMAGES_PATH %><%= item %>" alt="">
                                     <%if(index==2 && pic_num>3){%>
-                                        <div class="sy-num"><span><%= pic_num-3 %></span></div>
+                                        <div class="sy-num"><span>+<%= pic_num-3 %></span></div>
                                     <%}%>
                                 </div>
                             <% }) %>

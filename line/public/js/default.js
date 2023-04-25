@@ -43,7 +43,8 @@ $(function () {
     $(document).scroll(function () {
         console.log("000...000")
         var scroH = $(document).scrollTop(); //滚动高度
-        var win_height=$(window).height()/2; 
+        var win_height=0; 
+       // var win_height=$(window).height()/2; 
         // 粘性定位 left_tab、right_box
         if(scroH>win_height){
             $(".right-box").addClass("line-right-fixed")

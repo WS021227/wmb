@@ -102,14 +102,16 @@
 .line-index-container>.me-index-content>.me-content-head{
     position: relative;
     padding-bottom: 20px;
-    background:#fff;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);
+    background:#Fff;
+    box-shadow: 0 0 6px 6px rgb(0 0 0 / 2%);
+    border-radius:5px;
 }
 .me-index-content>.me-content-head>.back{
     width: 100%;
     height: 224px;
     background-size: 650px 224px;
     background-repeat: no-repeat;
+    border-radius:6px 6px 0 0;
 }
 .me-content-head>.back>span{
     display: inline-block;
@@ -128,14 +130,15 @@
 .me-content-head>img{
     position: absolute;
     left: 50%;
-    top: 36%;
+    top: 31%;
     transform: translateX(-50%);
     padding:3px;
     background:#fff;
     display: inline-block;
-    width: 112px;
+    width: 130px;
     border-radius: 50%;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 3%);
+    box-shadow:0 0 6px 6px rgb(0 0 0 / 5%);
+ 
 
 }
 .me-content-head>h1{
@@ -173,6 +176,7 @@
     font-size: 12px;
     border-radius:5px;
     font-weight:bold;
+    background:#fff;
 }
 
 .me-index-content>.me-content-introduction{
@@ -180,7 +184,8 @@
     margin-top: 30px;
     padding: 15px 0;
     background:#fff;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);
+    box-shadow: 0 0 6px 6px rgb(0 0 0 / 2%);
+    padding-bottom:20px;
 }
 .me-content-introduction>h2{
     font-size: 16px;
@@ -190,14 +195,14 @@
     display: block !important;
 }
 .me-content-introduction>.center{
-    padding: 20px;
+    padding: 20px 15px;padding-bottom:15px;
     display: flex;
 }
 .me-content-introduction>.center>img{
     width: 130px;
-    height:90px;
+    height:auto;
     margin-top:8px;
-    border-radius: 10px;
+    border-radius:5px;border:1px #eee solid;
 }
 .me-content-introduction>.center>.right{
     width: 380px;
@@ -250,21 +255,25 @@
     box-sizing:content-box;
     font-size: 14.4px;
     line-height:150%;
-
     position: relative;
 }
-.me-content-introduction>.collapse{
-    /* 在恰当的断字点进行换行 */
-    word-break: break-all;
-    /* 超出范围隐藏 */
+.me-content-introduction>.company-mian{
+padding:0 15px;font-size:14.4px;
+word-break: break-all;
     overflow: hidden;
-    /* 盒子模型 */
     display: -webkit-box;
-    /* 显示的文本行数 */
-    -webkit-line-clamp: 4;
-    /* 子元素的垂直排列方式 */
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    position: relative;
+    margin-bottom:3px;
 
+}
+.me-content-introduction>.collapse{
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
     position: relative;
 }
 .me-content-introduction>.collapse::after{
@@ -297,27 +306,29 @@
 .me-index-content .me-content-post-list{
     width: 650px;
     margin-top: 30px;
+    margin-bottom:30px;
 }
 .me-index-content h2{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.me-index-content h2.me-content-post-list-options{background:#fff;padding:7px 15px;margin-bottom:-27px;border-radius:5px;box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);}
+.me-index-content h2.me-content-post-list-options{}
 .me-index-content h2>div{
     display: inline-block;
 }
 .me-index-content h2>div span{
-    font-size: 15px;
+    font-size: 17.4px;
     line-height: 34px;
-    color: #333;
+    color: #999;
     font-weight: 400;
     vertical-align: middle;
     margin-right: 12px;
     vertical-align: text-top;
+    cursor: pointer;
 }
 .me-index-content h2>div .active{
-    font-size: 16.4px;
+    font-size: 18.4px;
     color: #333;
     font-weight:bold;
     position: relative;
@@ -326,7 +337,7 @@
     content: "";
     width: 20px;
     position: absolute;
-    top: 32px;
+    top: 30px;
     left: 50%;
     transform: translateX(-50%);
     border-bottom: 4px solid #BD3124;
@@ -335,14 +346,15 @@
     color: #333;
     font-size: 13.4px;
     font-weight: 400;
+    margin-bottom:-25px;
 }
 .me-content-post-list .me-content-list-box{
     background:#fff;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);
+    box-shadow: 0 0 6px 6px rgb(0 0 0 / 2%);
     font-size: 14px;
     color: #101010;
     padding: 15px 15px;
-    margin-top: 30px;
+    margin-top:20px;
     border-radius:3px;
 }
 .me-content-list-box>h3{
@@ -361,66 +373,64 @@
 }
 .me-content-list-box>h3 .user-name{
     font-weight: 600;
-    color: #06c;
+    color: #333;
     text-transform: capitalize;
-    margin-right: 5px;
+    margin-right:2px;
 }
 .me-content-list-box>h3>div{
     display: inline-block;
-    width: 530px;font-size:14.4px;
+    width: 530px;font-size:13.4px;
+    color:#666;
 }
 .me-content-list-box>h3>a{
     border: 1px solid #ccc;
-    color: #333;
+    color: #666;
     text-decoration: none;
     padding:3px 10px;
-    font-size:13.4px;
+    font-size:12.4px;
     width:35px;
     text-align:center;
+    border-radius:100px;
 }
 .me-content-list-box>p{
     box-sizing:content-box;
-    padding: 15px 0px;
-    font-size: 14px;
-    max-height: 105px;
-    line-height: 20px;
-    /* 在恰当的断字点进行换行 */
+    margin-top:15px;
+    font-size: 14.4px;
+    line-height:150%;
     word-break: break-all;
-    /* 超出范围隐藏 */
     overflow: hidden;
-    /* 文字超出用省略号 */
     text-overflow: ellipsis;
-    /* 盒子模型 */
     display: -webkit-box;
-    /* 显示的文本行数 */
-    -webkit-line-clamp: 6;
-    /* 子元素的垂直排列方式 */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    max-height:68px;
 }
-
+.me-content-list-box>p span{display:inline-block;padding:3px 6px;color:#E98B0C;border:1px #E98B0C solid;font-size:12px;margin-right:5px;border-radius:100px;line-height:100%;}
 /* 图片展示 */
 .me-content-list-box>.viewer{
     width: 100%;
     display: flex;
-    justify-content:space-between;
-    flex-wrap: wrap;
     align-items: center;
+    margin-top:20px;
 }
 .viewer>.pic{
-    min-width: 190px !important;
-    max-width: 300px !important;
-    height: auto;
-    border:1px #eee solid;
-}
+    margin-right:18px;  
+    border:1px #e0e0e0 solid;
+    border-radius:5px; 
+    overflow:hidden;
+    padding:3px;}
+.viewer>.pic.num3{height:193px;width:193px;position:relative;}
+.viewer>.pic.num2{height:300px;width:300px;}
+.viewer>.pic.num1{height:240px;}
+
+.viewer>.pic:last-child{margin-right:0;}
 .viewer>.num2{
     position: relative;
-    margin-top: 10px;
-}
-.viewer>.display-none{
-    display: none;
 }
 .viewer img{
    width: 100%;
+   height:100%;
+   object-fit: cover;
 }
 .viewer .sy-num{
     position: absolute;
@@ -428,13 +438,15 @@
     left: 50%;
     z-index: 10;
     transform: translate(-50%,-50%);
-    background-color: #101010;
+    background-color: #333;
     color: #ffffff;
-    font-size: 14.4px;
-    height:25px;
-    width:25px;
-    line-height:25px;
+    font-size: 12.4px;
+    height:30px;
+    width:30px;
+    line-height:30px;
     text-align:center;
+    border-radius:100px;
+    cursor: pointer;
 }
 
 
@@ -442,7 +454,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 12.4px;
-    color: #999;
+    color: #ccc;
     padding-top:15px;
 }
 .me-content-list-box>.buttom>.right>span{
@@ -529,7 +541,7 @@
 }
 
 /* 无发布内容 */
-.me-content-post-list>.no-data{background:#fff;margin-top:30px;box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);}
+.me-content-post-list>.no-data{background:#fff;margin-top:20px;box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 1.5%);}
 .no-data{width: 100%; padding:50px 0;}
 .no-data i{display:inline-block;height:45px;width:45px;background: url(/images/bline_ico_bg.png) 0px -173px no-repeat;}
 .no-data>div{text-align: center;opacity:0.5;}
