@@ -255,10 +255,10 @@ h1>span{
 .postings-box-list .postings-box:nth-child(4n){
     margin-right: 0px;
 }
-.postings-box>h3{width:240px;height:165px;overflow:hidden;border-radius:5px 5px 0 0;}
+.postings-box>h3{width:220px;height:165px;overflow:hidden;border-radius:5px 5px 0 0;margin-top:10px;margin-left:10px;}
 .postings-box>h3>img{
     display: inline-block;
-    width: 240px;
+    width:100%;
     height: 165px;
     object-fit: cover;border-radius:5px 5px 0 0; transition: all .5s ease .1s;
 }
@@ -318,7 +318,7 @@ h1>span{
     color: #eee;
     font-size: 10px;
     text-align: center;
-
+    display:none;
     position: absolute;
     top: 10px;
     right: 10px;

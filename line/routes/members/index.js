@@ -44,7 +44,7 @@ router.members = function (req, res) {
         )
     },
     ], function (err, _) {
-        return res.wrender('./pages/members.ejs', {
+        return res.wrender('./pages/member/members.ejs', {
             results: results
         });
     })
@@ -73,7 +73,7 @@ router.members_search = function (req, res) {
             )
         },
     ], function (err, _) {
-        return res.wrender('./pages/members.ejs', {
+        return res.wrender('./pages/members/members.ejs', {
             results: results
         });
     })

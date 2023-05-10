@@ -61,8 +61,6 @@ let share_lang = {
   'line_right_center_title':{cn:'供求信息',en:'supply and demand'}
 }
 
-
-
 let master_host = $('meta[name="master_host"]').attr('content')
 let page_mark = $('meta[name="page_mark"]').attr('content') || ''
 jQuery.extend({
@@ -322,9 +320,6 @@ function picture_array(pic_url){
 }
 
 
-
-
-
 /**
  * 统一翻译方法
  * @param key
@@ -544,7 +539,7 @@ function full_pop(){
         }
     })
 }
-
+// 退出登录
 function sign_out() {
     $.get('/async/sign/out', function () {
         window.location.href = "/";

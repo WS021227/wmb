@@ -8,13 +8,14 @@
         <h2><%= line_right_center_title %></h2>
         <ul>
             <% data_list.forEach(function(item,index){ %>
+                
                 <li>
-                    <!-- 发现人 -->
+                    <!-- 发现人 用户详情页面-->
                     <% if(results.nav=='members'){ %>
                         <img class="members-img" src="<%=IMAGES_PATH%><%= picture_format(item.avatar) %>" alt="">
                         <div class="members-right">
-                            <span class="name"><%= item.name %></span>
-                            <span class="members-bottom"><%= item.position %></span>
+                            <span class="name"><%= item.name %><font>(<%= item.position %>)</font></span>
+                            <span class="members-bottom"><%= item.company_name %></span>
                         </div>
                     <!-- 首页 -->
                     <% } else { %>

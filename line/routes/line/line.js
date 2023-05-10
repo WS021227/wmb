@@ -153,6 +153,7 @@ router.hot_keys = function (req, res) {
 }
 
 router.full_pop = function (req, res) {
+  return res.send({state:1})
   let _user = tools.unity_merger_user(res)
   // 未开通或者首次申请在审核状态下
   if (!_user.uid) return res.wabort()

@@ -27,7 +27,7 @@ $(function(){
     //     toolbar:true,
     // })
 
-    // 点击展开更多
+    // 公司简介点击展开更多
     $("#company_detail_more").click(function(){
         if($(this).hasClass('show')){
             $('.me-content-introduction .company-detail').removeClass("collapse")
@@ -42,7 +42,7 @@ $(function(){
 
     // 采供弹窗
     $("#pro_more").click(function(){
-    layer.open({
+        layer.open({
             type: 1,
             skin: 'layui-layer-toast', //样式类名
             closeBtn: 1, //不显示关闭按钮
@@ -57,7 +57,7 @@ $(function(){
     // 最新、热门帖子切换
     $("#new_or_hot span").click(function(){
         $(this).addClass("active").siblings().removeClass("active")
-        let id = $(this).data('id') || 2
+        let id = $(this).data('id')
         let user_id=$(this).parent().data("uid")
 
         $.loadajax('/async/get_new_or_hot', {
@@ -65,7 +65,7 @@ $(function(){
             data: {id:id,uid:user_id},
             success: function (result) {
                 if (result.state == 0) {
-                    put_Post(result)
+                    put_post(result)
                 }
             }
         })
@@ -73,7 +73,7 @@ $(function(){
 })
 
 
-function put_Post(list,more){
+function put_post(list,more){
     console.log(list,'最新最热切换')
     $("#box_list .me-content-list-box").remove()
     $("#num").text(`共计${list.data.total}条`)

@@ -169,14 +169,15 @@
     margin-top: 10px;
 }
 .me-content-head>.button>a{
-    border:1px #06c solid;
+    border:1px #008EFF solid;
     text-decoration: none;
     padding: 8px 18px;
-    color: #06c;    
+    color: #008EFF;    
     font-size: 12px;
     border-radius:5px;
     font-weight:bold;
     background:#fff;
+    border-radius:100px;
 }
 
 .me-index-content>.me-content-introduction{
@@ -289,6 +290,7 @@ word-break: break-all;
     color:#58A2E8 ;
     padding: 0;
     display: inline-block;
+    font-size:13.4px;
 }
 .company-detail>.more-active{
     position: absolute;
@@ -415,13 +417,13 @@ word-break: break-all;
 }
 .viewer>.pic{
     margin-right:18px;  
-    border:1px #e0e0e0 solid;
+    border:1px #eee solid;
     border-radius:5px; 
     overflow:hidden;
     padding:3px;}
 .viewer>.pic.num3{height:193px;width:193px;position:relative;}
 .viewer>.pic.num2{height:300px;width:300px;}
-.viewer>.pic.num1{height:240px;}
+.viewer>.pic.num1{height:auto;}
 
 .viewer>.pic:last-child{margin-right:0;}
 .viewer>.num2{

@@ -31,6 +31,7 @@ router.user_xq = function (req, res) {
               },
               req, res,
               function (result) {
+                console.log(result.data.list,"同行推荐数据")
                 results.users_recommend_list = result.data.list
                 cb(null, 1)
               }
@@ -54,7 +55,6 @@ router.user_xq = function (req, res) {
             tools.getMasterApiQuery(`/line/topic/list`, search_key,
               req, res,
               function (result) {
-                console.log(result,"最新帖子")
                 results.users_active_list = result.data.list
                 results.total = result.data.total
                 cb(null, 1)
@@ -62,7 +62,7 @@ router.user_xq = function (req, res) {
             )
         },
     ], function (err, _) {
-        return res.wrender('./pages/detail.ejs', {
+        return res.wrender('./pages/member/children/detail.ejs', {
             results: results
         });
     })

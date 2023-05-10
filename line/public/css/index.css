@@ -3,7 +3,7 @@
     margin: 0;
 }
 /*覆盖*/
-.index-right ul{padding-bottom:15px;}
+.index-right ul{padding-bottom:10px;}
 .index-right ul li{margin-bottom:10px;padding-bottom:10px;border-bottom:1px #eee solid;}
 .index-right ul li div{position:relative;}
 .index-right ul li div span{position:absolute;left:0;bottom:0;}
@@ -96,7 +96,7 @@
     z-index: 3;
     background:#fff;
     padding:3px;
-    box-shadow: 2px 2px 6px 6px rgb(0 0 0 / 2%);
+    box-shadow: 0 0 6px 6px rgb(0 0 0 / 4%);
 }
 .user-content-box-content>.avatar{
     position: absolute;
@@ -149,23 +149,24 @@
     display: inline-block;
     padding-top: 20px;
     align-self: center;
-    color: #06c;
+    color: #008EFF;
 }
 .user-content-box-content>:nth-child(3)>a{
     text-decoration: none;
-    color: #06c;
-    border: 1px solid #06c;
-    padding: 3px 8px;
+    color: #008EFF;
+    border: 1px solid #008EFF;
+    padding: 4px 10px;
     text-align: center;
     font-size: 12.4px;
     margin-left:3px;
+    border-radius:100px;
 }
 .user-content-box-content>:nth-child(3)>a>i{
     display: inline-block;
     height: 100%;
     margin-right: 4px;
     font-weight:bold;
-    color: #06c;
+    color: #008EFF;
     font-style: normal;
 }
 .user-content-box-content>:nth-child(3)>a>i>.icon{

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../../global/head.ejs') %>
+    <title><%=translate('home_website_title')%></title>
+    <link rel="stylesheet" href="<%= STATIC %>css/user.css?v=<%=VERSION%>">
+    <link rel="stylesheet" href="<%= STATIC %>plugins/viewer/viewer.css?v=<%=VERSION%>">
+</head>
+<body>
+<% let user_data=results.users_data || {},active_data=results.users_active_list || [],total=results.total %>
+<%- include('../../../global/navbar.ejs') %>
+<div class="line-index-container" data-img="<%=IMAGES_PATH%>">
+    <%- include('../../../global/left_tab.ejs') %>
+    <div class="line-index-content me-index-content">
+        <div class="me-content-head">
+            <div class="back" style="background-image: url('<%=IMAGES_PATH%><%= user_data.cover %>');">
+                <span><a href="#">编辑主页</a></span>
+            </div>
+            <img src="<%=IMAGES_PATH%><%= user_data.avatar %>" alt="">
+            <h1><span><%= user_data.name %><font>(<%= user_data.country %>)</font></span></h1>
+            <span class="company">上海义缘网络科技有限公司<font>|</font><%= user_data.company_type_name %></span>
+            <span>职位：<%= user_data.position %></span>
+            <div class="button">
+                <a href="">+关注</a>
+                <a href="">发私信</a>
+            </div>
+        </div>
+        <div class="me-content-introduction">
+            <h2>任职公司</h2>
+            <div class="center">
+                <img src="<%=IMAGES_PATH%><%= user_data.company_cover %>" alt="">
+                <div class="right">
+                    <div>公司：&nbsp;<span><%= user_data.company_name %></span></div>   
+                    <div>属性：&nbsp;<span><%= user_data.company_type_name %>公司</span></div>
+                    <% if(user_data.company_site) { %>
+                        <div>官网：&nbsp;<a href="<%= user_data.company_site %>" target="_blank"><%= user_data.company_site %></a></div>
+                    <% }else{ %>
+                        <div>官网：&nbsp;<a class="no-web" href="javascript:void(0);">暂无官网</a></div>
+                    <% } %>
+                    <!-- <div>采购：&nbsp; -->
+                        <!-- <div class="products">
+                            <span class="text" id="text"><%= products_format(user_data.products) %></span>
+                            <span data-pro="<%= user_data.products %>" class="more <%= user_data.products.length>5?'show':'display-none' %>" id="pro_more">[更多]</span>
+                        </div> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+            <p class="company-mian"><font>采供：</font><%= products_format(user_data.products) %></p>
+            <p class="company-detail">                
+                <font>简介：</font><%= user_data.company_introduction %>
+                <span id="company_detail_more" class="more display-none">[展开]</span>
+            </p>
+        </div>
+        <div class="me-content-post-list">
+            <h2 class="me-content-post-list-options" id="active_recommend">
+                <div id="new_or_hot" data-uid="<%= user_data.user_id %>">
+                    <span class="active" data-id=2>最新</span>
+                    <span data-id=1>热门</span>
+                </div>
+                <span class="num" id="num">共计<%= total %>条</span>
+            </h2>
+            <div id="box_list">
+                <% if(active_data.length!=0){ %>
+                    <% active_data.forEach(function(item,index){ %>
+                    <div class="me-content-list-box">
+                        <h3>
+                            <img src="<%= IMAGES_PATH %><%= item.avatar %>">
+                            <div><span class="user-name" id="user_name"><%= item.name %></span>发布于<span><%= item.create_time.substr(0,10) %></span></div>
+                            <a href="#">详情<font>&gt;</font></a>
+                        </h3>
+                        <p><span id="cg_flag">正在供应</span><%= item.contents %></p>                        
+                        <div class="viewer" id="viewer">
+                            <% let pic_num=picture_num(item.images) %>
+                            <% let pic_list=picture_array(item.images) %>
+                            <% pic_list.forEach(function(item,index){ %>
+                                <div class="pic <%= pic_list.length==1?'num1': pic_list.length==2?'num2':'num3' %>">
+                                    <img src="<%= IMAGES_PATH %><%= item %>" alt="">
+                                    <%if(index==2 && pic_num>3){%>
+                                        <div class="sy-num"><span>+<%= pic_num-3 %></span></div>
+                                    <%}%>
+                                </div>
+                            <% }) %>
+                        </div>
+        
+                        <% console.log(item.reply_count,"回复次数") %>
+                        <div class="buttom">
+                            <div class="left">此条信息<span><%= item.ad_count %></span>次展示，<span><%= item.view_count %></span>次查阅
+                            </div>
+                            <% if(item.reply_count>0){ %>
+                                <div class="right"> 
+                                    <span>回复<%= item.reply_count %></span>
+                                    <span>编辑</span>
+                                </div>
+                            <% } %>
+                        </div>
+        
+                        <% if(item.reply_count>0){ %>
+                            <div class="reply">
+                                <div class="reply-text">
+                                    <input type="search" placeholder="请输入您回复的内容">
+                                    <a href="">回复</a>
+                                </div>
+                                <div class="reply-texts">
+                                    <p><span>张三：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                                    <p><span>李四：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                                    <p><span>王五：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                                    <p><span>我：</span>sdfgsdgsdfgsdfgsdfgsdfgsdfgsdfgsdfgggg</p>
+                             </div>
+                                <span>更多回复</span>
+                            </div>
+                        <% } %>
+                    </div>
+                    <% }) %>
+                <% } %>
+            </div>
+            <% if(total>10) {%>
+                <span class="more" id="more">加载更多<i></i></span>
+            <% } %>
+           <% if(active_data.length==0){ %>
+                <div class="no-data">
+                    <div>
+                        <i></i>
+                        <span>暂无更多帖子信息</span>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <%- include('../../../global/line_right.ejs') %>
+</div>
+<%- include('../../../global/foot.ejs') %>
+<script src="https://unpkg.com/viewerjs@1.6.1/dist/viewer.js"> </script>
+<script src="<%= STATIC %>plugins/viewer/jquery-viewer.min.js?v=<%=VERSION%>"> </script>
+<script src="<%=STATIC%>js/members/detail/index.js?v=<%=VERSION%>"> </script>
+</body>
+</html>

@@ -284,7 +284,7 @@ ul>a>span::before{content:"+";padding-right:3px;}
     text-align: center;
     font-size: 12px;
     color: #999;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     text-decoration: none;
 }
 .gq-more i{
@@ -301,26 +301,20 @@ ul li{
     width: 100%;
     margin-bottom: 20px;
 }
-.line-index-right>ul>li:nth-child(5){
-    margin-bottom: 0px;
-}
-
+.line-index-right>ul>li:nth-child(5){margin-bottom: 0px;}
 ul li img{
-    width: 68px;
-    height:68px;
-    object-fit: cover;
+    width:50px;
+    height:50px;
     border-radius:5px;
 }
 ul li .members-img{
     display: inline-block;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
-ul li>div{width: 178px;font-size:12.4px;}
-ul li>.members-right{
-    width: 200px;
-}
+ul li>div{width: 196px;font-size:12.4px;}
+ul li>.members-right{width: 200px;}
 ul li>div>p{
     font-weight: 600;
     line-height:140%;
@@ -336,11 +330,11 @@ ul li>div span{
     display: block;
     margin-top:5px;
     color: #999;
-    font-size:12.4px;
+    font-size:12px;
 }
 ul li div>.name{
     display: inline-block;
-    font-size: 14.4px;
+    font-size: 12.4px;
     color: #333;
     max-width: 200px;
     font-weight:bold;
@@ -349,11 +343,12 @@ ul li div>.name{
     overflow: hidden;
     text-transform:capitalize;
 }
+ul li div>.name font{font-size:12.4px;color:#333;font-weight:500;padding-left:5px;}
 ul li div>.members-bottom{
     margin-top: 0;
-    font-size: 13.4px;
+    font-size: 12.4px;
     max-width: 200px;
-    color:#999;
+    color:#666;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
